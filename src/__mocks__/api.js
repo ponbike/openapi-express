@@ -1,24 +1,19 @@
 import openAPISpecification from '../__fixtures__/api-doc.json'
 import controllers from './controller.js'
-import buildOpenapiExpress from '../openapi-express.js'
+import { buildOpenapiExpress, API } from '../openapi-express.js'
 
-let app
-try {
-  app = buildOpenapiExpress({
-    name: 'test',
-    version: '1.2.3',
-    apis: [
-      {
-        version: 'v1',
-        specification: openAPISpecification,
-        controllers,
-        secret: 'secret'
-      }
-    ],
-    staticFolder: 'src/__fixtures__'
-  })
-} catch (error) {
-  console.error(error.message)
-}
+const app = buildOpenapiExpress({
+  name: 'test',
+  version: '1.2.3',
+  apis: [
+    API.create({
+      version: 'v1',
+      specification: openAPISpecification,
+      controllers,
+      secret: 'secret'
+    })
+  ],
+  staticFolder: 'src/__fixtures__'
+})
 
 export default app
