@@ -65,6 +65,7 @@
    * @param {string} version
    * @param {array} apis
    * @param {array} poweredBy
+   * @param {string} staticFolder
    *
    * @return {object}
    */
@@ -73,7 +74,8 @@
     name,
     version,
     apis,
-    poweredBy = 'Pon.Bike'
+    poweredBy = 'Pon.Bike',
+    staticFolder = null
   }) {
     const app = express();
     app.set('name', name);
@@ -92,6 +94,22 @@
     app.set('logger', logger);
     apis.forEach(api => {
       app.use('/' + api.version, makeApi(api));
+    });
+
+    if (staticFolder) {
+      if (staticFolder.constructor !== String) {
+        throw new Error('staticFolder isnt a valid string to the static files folder');
+      }
+
+      app.use(express.static(staticFolder));
+    }
+
+    app.use(function (request, response, next) {
+      response.status(404).send({
+        status: 404,
+        timestamp: new Date(),
+        message: 'Not found.'
+      });
     });
     return app;
   }
