@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('express'), require('swagger-ui-express'), require('cors'), require('compression'), require('helmet'), require('express-pino-logger'), require('pino'), require('@hckrnews/openapi-routes'), require('openapi-backend'), require('@hckrnews/express-callback')) :
-  typeof define === 'function' && define.amd ? define(['express', 'swagger-ui-express', 'cors', 'compression', 'helmet', 'express-pino-logger', 'pino', '@hckrnews/openapi-routes', 'openapi-backend', '@hckrnews/express-callback'], factory) :
-  (global = global || self, global.openapiExpress = factory(global.express, global.swaggerUiExpress, global.cors, global.compression, global.helmet, global.expressPinoLogger, global.pino, global.openapiRoutes, global.openapiBackend, global.expressCallback));
-}(this, (function (express, swaggerUi, cors, compression, helmet, expressPino, pino, openapiRoutes, openapiBackend, expressCallback) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('express'), require('swagger-ui-express'), require('cors'), require('compression'), require('helmet'), require('express-pino-logger'), require('pino'), require('@hckrnews/openapi-routes'), require('openapi-backend'), require('@hckrnews/express-callback'), require('serve-static')) :
+  typeof define === 'function' && define.amd ? define(['express', 'swagger-ui-express', 'cors', 'compression', 'helmet', 'express-pino-logger', 'pino', '@hckrnews/openapi-routes', 'openapi-backend', '@hckrnews/express-callback', 'serve-static'], factory) :
+  (global = global || self, global.openapiExpress = factory(global.express, global.swaggerUiExpress, global.cors, global.compression, global.helmet, global.expressPinoLogger, global.pino, global.openapiRoutes, global.openapiBackend, global.expressCallback, global.serveStatic));
+}(this, (function (express, swaggerUi, cors, compression, helmet, expressPino, pino, openapiRoutes, openapiBackend, expressCallback, serveStatic) {
   express = express && Object.prototype.hasOwnProperty.call(express, 'default') ? express['default'] : express;
   swaggerUi = swaggerUi && Object.prototype.hasOwnProperty.call(swaggerUi, 'default') ? swaggerUi['default'] : swaggerUi;
   cors = cors && Object.prototype.hasOwnProperty.call(cors, 'default') ? cors['default'] : cors;
@@ -10,6 +10,7 @@
   helmet = helmet && Object.prototype.hasOwnProperty.call(helmet, 'default') ? helmet['default'] : helmet;
   expressPino = expressPino && Object.prototype.hasOwnProperty.call(expressPino, 'default') ? expressPino['default'] : expressPino;
   pino = pino && Object.prototype.hasOwnProperty.call(pino, 'default') ? pino['default'] : pino;
+  serveStatic = serveStatic && Object.prototype.hasOwnProperty.call(serveStatic, 'default') ? serveStatic['default'] : serveStatic;
 
   /*
       Pino Stackdriver logger
@@ -92,6 +93,14 @@
     app.set('logger', logger);
     apis.forEach(api => {
       app.use('/' + api.version, makeApi(api));
+    });
+    app.use(serveStatic('/public'));
+    app.use(function (request, response, next) {
+      response.status(404).send({
+        status: 404,
+        timestamp: new Date(),
+        message: 'Not found.'
+      });
     });
     return app;
   }

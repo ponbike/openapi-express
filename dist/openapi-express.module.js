@@ -8,6 +8,7 @@ import pino from 'pino';
 import { ApiRoutes } from '@hckrnews/openapi-routes';
 import { OpenAPIBackend } from 'openapi-backend';
 import { makeExpressCallback } from '@hckrnews/express-callback';
+import serveStatic from 'serve-static';
 
 /*
     Pino Stackdriver logger
@@ -90,6 +91,14 @@ function buildOpenapiExpress({
   app.set('logger', logger);
   apis.forEach(api => {
     app.use('/' + api.version, makeApi(api));
+  });
+  app.use(serveStatic('/public'));
+  app.use(function (request, response, next) {
+    response.status(404).send({
+      status: 404,
+      timestamp: new Date(),
+      message: 'Not found.'
+    });
   });
   return app;
 }

@@ -1,6 +1,6 @@
 {
     "name": "@ponbike/openapi-express",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "OpenAPI express",
     "files": [
         "src/openapi-express.js",
@@ -48,8 +48,8 @@
     "scripts": {
         "build": "microbundle --target node",
         "dev": "microbundle --target node watch",
-        "lint": "standard src/*",
-        "lint:fix": "standard src/* --fix",
+        "lint": "standard src",
+        "lint:fix": "standard src --fix",
         "test": "jest",
         "test:watch": "jest src --watch",
         "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
@@ -75,7 +75,8 @@
         "jest": "^26.6.3",
         "microbundle": "^0.12.3",
         "prettier": "^2.2.0",
-        "standard": "^16.0.3"
+        "standard": "^16.0.3",
+        "supertest": "^6.0.1"
     },
     "type": "module",
     "engines": {
@@ -91,6 +92,7 @@
         "helmet": "^4.2.0",
         "openapi-backend": "^3.6.3",
         "pino": "^6.7.0",
+        "serve-static": "^1.14.1",
         "swagger-ui-express": "^4.1.5"
     },
     "standard": {
@@ -100,6 +102,9 @@
             "it",
             "expect",
             "btoa"
+        ],
+        "ignore": [
+            "**/__fixtures__/"
         ]
     }
 }

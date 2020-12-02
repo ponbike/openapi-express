@@ -10,6 +10,7 @@ var pino = _interopDefault(require('pino'));
 var openapiRoutes = require('@hckrnews/openapi-routes');
 var openapiBackend = require('openapi-backend');
 var expressCallback = require('@hckrnews/express-callback');
+var serveStatic = _interopDefault(require('serve-static'));
 
 /*
     Pino Stackdriver logger
@@ -92,6 +93,14 @@ function buildOpenapiExpress({
   app.set('logger', logger);
   apis.forEach(api => {
     app.use('/' + api.version, makeApi(api));
+  });
+  app.use(serveStatic('/public'));
+  app.use(function (request, response, next) {
+    response.status(404).send({
+      status: 404,
+      timestamp: new Date(),
+      message: 'Not found.'
+    });
   });
   return app;
 }

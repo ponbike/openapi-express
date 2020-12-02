@@ -8,6 +8,7 @@ import stackdriver from './pino-logger-stackdriver.js'
 import { ApiRoutes } from '@hckrnews/openapi-routes'
 import { OpenAPIBackend } from 'openapi-backend'
 import { makeExpressCallback } from '@hckrnews/express-callback'
+import serveStatic from 'serve-static'
 
 const logger = stackdriver()
 
@@ -39,6 +40,15 @@ export default function buildOpenapiExpress ({ name, version, apis, poweredBy = 
 
   apis.forEach((api) => {
     app.use('/' + api.version, makeApi(api))
+  })
+
+  app.use(serveStatic('/public'))
+  app.use(function (request, response, next) {
+    response.status(404).send({
+      status: 404,
+      timestamp: new Date(),
+      message: 'Not found.'
+    })
   })
 
   return app
