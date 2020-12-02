@@ -10,6 +10,7 @@ var pino = _interopDefault(require('pino'));
 var openapiRoutes = require('@hckrnews/openapi-routes');
 var openapiBackend = require('openapi-backend');
 var expressCallback = require('@hckrnews/express-callback');
+var validator = require('@hckrnews/validator');
 
 /*
     Pino Stackdriver logger
@@ -57,7 +58,112 @@ var stackdriver = (options => pino({ ...options,
   ...defaultPinoConf
 }));
 
+class API {
+  constructor() {
+    this.version = 'v1';
+    this.specification = {};
+    this.controllers = {};
+    this.secret = null;
+  }
+  /**
+   * Set the version
+   *
+   * @param {string} version
+   */
+
+
+  setVersion(version) {
+    if (!version || version.constructor !== String) {
+      throw new Error('Invalid OpenAPI version');
+    }
+
+    this.version = version;
+  }
+  /**
+   * Set the specification
+   *
+   * @param {object} specification
+   */
+
+
+  setSpecifivation(specification) {
+    if (!specification || specification.constructor !== Object) {
+      throw new Error('Invalid OpenAPI specification');
+    }
+
+    this.specification = specification;
+  }
+  /**
+   * Set the controllers
+   *
+   * @param {object} controllers
+   */
+
+
+  setControllers(controllers) {
+    if (!controllers || controllers.constructor !== Object) {
+      throw new Error('Invalid OpenAPI controllers');
+    }
+
+    this.controllers = controllers;
+  }
+  /**
+   * Set the secret
+   *
+   * @param {string} scret
+   */
+
+
+  setSecret(secret) {
+    if (secret.constructor !== String) {
+      throw new Error('Invalid OpenAPI secret');
+    }
+
+    this.secret = secret;
+  }
+  /**
+   * Create an API entity
+   *
+   * @param {string} version
+   * @param {object} specification
+   * @param {object} controllers
+   * @param {string} secret
+   *
+   * @return {object}
+   */
+
+
+  static create({
+    version,
+    specification,
+    controllers,
+    secret
+  }) {
+    const api = new API();
+    api.setVersion(version);
+    api.setSpecifivation(specification);
+    api.setControllers(controllers);
+    api.setSecret(secret);
+    return api;
+  }
+
+}
+
+var apiSchema = {
+  name: 'string',
+  version: 'string',
+  apis: {
+    version: 'string',
+    specification: 'object',
+    controllers: 'object',
+    '?secret': 'string'
+  },
+  '?poweredBy': 'string',
+  '?staticFolder': 'string'
+};
+
 const logger = stackdriver();
+const apiValidator = new validator.Validator(apiSchema);
 /**
  * Build the Open API Express server.
  *
@@ -70,13 +176,23 @@ const logger = stackdriver();
  * @return {object}
  */
 
-function buildOpenapiExpress({
+const buildOpenapiExpress = ({
   name,
   version,
   apis,
   poweredBy = 'Pon.Bike',
   staticFolder = null
-}) {
+}) => {
+  if (!apiValidator.validate({
+    name,
+    version,
+    apis,
+    poweredBy,
+    staticFolder
+  })) {
+    throw new Error('invalid api details, field ' + apiValidator.errors[0][0] + ' should be a ' + apiValidator.errors[0][1]);
+  }
+
   const app = express();
   app.set('name', name);
   app.use(cors());
@@ -97,10 +213,6 @@ function buildOpenapiExpress({
   });
 
   if (staticFolder) {
-    if (staticFolder.constructor !== String) {
-      throw new Error('staticFolder isnt a valid string to the static files folder');
-    }
-
     app.use(express.static(staticFolder));
   }
 
@@ -112,27 +224,27 @@ function buildOpenapiExpress({
     });
   });
   return app;
-}
+};
 /**
  * Connect the openapi spec to the controllers.
  *
- * @param {object} specification
- * @param {object} controllers
- * @param {string} secret
+ * @param {object} api
  *
  * @return {object}
  */
 
-const makeApi = ({
-  specification,
-  controllers,
-  secret
-}) => {
+
+const makeApi = api => {
+  const {
+    specification,
+    controllers,
+    secret
+  } = API.create(api);
   const router = express.Router();
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification));
   router.get('/api-docs', (request, response) => response.json(specification));
   router.use((request, response) => openapiRoutes.ApiRoutes.create({
-    specification: specification,
+    specification,
     secret,
     Backend: openapiBackend.OpenAPIBackend,
     logger,
@@ -143,5 +255,8 @@ const makeApi = ({
   return router;
 };
 
-module.exports = buildOpenapiExpress;
+exports.API = API;
+exports.buildOpenapiExpress = buildOpenapiExpress;
+exports.default = buildOpenapiExpress;
+exports.makeApi = makeApi;
 //# sourceMappingURL=openapi-express.js.map
