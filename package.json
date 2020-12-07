@@ -1,6 +1,6 @@
 {
     "name": "@ponbike/openapi-express",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "OpenAPI express",
     "files": [
         "src/openapi-express.js",
@@ -77,13 +77,13 @@
         "@hckrnews/express-callback": "^1.0.0",
         "@hckrnews/openapi-routes": "^1.2.1",
         "@hckrnews/validator": "^2.1.7",
+        "@ponbike/logger-stackdriver": "^0.1.0",
         "compression": "^1.7.4",
         "cors": "^2.8.5",
         "express": "^4.17.1",
         "express-pino-logger": "^5.0.0",
         "helmet": "^4.2.0",
         "openapi-backend": "^3.6.3",
-        "pino": "^6.7.0",
         "swagger-ui-express": "^4.1.5"
     },
     "standard": {

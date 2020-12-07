@@ -4,57 +4,11 @@ import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
 import expressPino from 'express-pino-logger';
-import pino from 'pino';
+import { logger as logger$1 } from '@ponbike/logger-stackdriver';
 import { ApiRoutes } from '@hckrnews/openapi-routes';
 import { OpenAPIBackend } from 'openapi-backend';
 import { makeExpressCallback } from '@hckrnews/express-callback';
 import { Validator } from '@hckrnews/validator';
-
-/*
-    Pino Stackdriver logger
-
-    The Pino Logger, but with a format that stackdriver understands
-
-    This will be a package, source code:
-    https://bitbucket.org/ponbikedmp/node-logger-stackdriver/src/main/
- */
-const PINO_DEFAULT_LEVEL = 'info';
-const PinoLevelToSeverity = {
-  trace: 'DEBUG',
-  debug: 'DEBUG',
-  info: 'INFO',
-  warn: 'WARNING',
-  error: 'ERROR',
-  fatal: 'CRITICAL'
-};
-const defaultPinoConf = {
-  messageKey: 'message',
-  formatters: {
-    level(label, number) {
-      return {
-        severity: PinoLevelToSeverity[label] || PinoLevelToSeverity[PINO_DEFAULT_LEVEL],
-        level: number
-      };
-    },
-
-    log(message) {
-      return {
-        message
-      };
-    }
-
-  }
-};
-/**
- * Returns a new Pino Logger instance with stackdriver ready logs!
- *
- * @param {object} options
- * @returns {P.Logger} a new Pino logger instance with stackdriver ready logs
- */
-
-var stackdriver = (options => pino({ ...options,
-  ...defaultPinoConf
-}));
 
 class API {
   constructor() {
@@ -160,7 +114,7 @@ var apiSchema = {
   '?staticFolder': 'string'
 };
 
-const logger = stackdriver();
+const logger = logger$1();
 const apiValidator = new Validator(apiSchema);
 /**
  * Build the Open API Express server.
