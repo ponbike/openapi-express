@@ -113,7 +113,7 @@ class API {
 
 
   setSecret(secret) {
-    if (secret.constructor !== String) {
+    if (secret && secret.constructor !== String) {
       throw new Error('Invalid OpenAPI secret');
     }
 
