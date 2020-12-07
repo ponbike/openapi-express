@@ -46,7 +46,8 @@ const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', stat
   app.set('logger', logger)
 
   apis.forEach((api) => {
-    app.use('/' + api.version, makeApi(api))
+    const apiRoutes = makeApi(api)
+    app.use('/' + api.version, apiRoutes)
   })
 
   if (staticFolder) {
@@ -78,17 +79,18 @@ const makeApi = (api) => {
   router.get('/api-docs', (request, response) =>
     response.json(specification)
   )
+  const apiRoutes = ApiRoutes.create({
+    specification,
+    secret,
+    Backend: OpenAPIBackend,
+    logger,
+    controllers,
+    callback: makeExpressCallback,
+    root: '/'
+  })
 
   router.use((request, response) =>
-    ApiRoutes.create({
-      specification,
-      secret,
-      Backend: OpenAPIBackend,
-      logger,
-      controllers,
-      callback: makeExpressCallback,
-      root: '/'
-    }).handleRequest(
+    apiRoutes.handleRequest(
       request,
       request,
       response

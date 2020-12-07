@@ -207,7 +207,8 @@ const buildOpenapiExpress = ({
   }));
   app.set('logger', logger);
   apis.forEach(api => {
-    app.use('/' + api.version, makeApi(api));
+    const apiRoutes = makeApi(api);
+    app.use('/' + api.version, apiRoutes);
   });
 
   if (staticFolder) {
@@ -241,7 +242,7 @@ const makeApi = api => {
   const router = express.Router();
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification));
   router.get('/api-docs', (request, response) => response.json(specification));
-  router.use((request, response) => ApiRoutes.create({
+  const apiRoutes = ApiRoutes.create({
     specification,
     secret,
     Backend: OpenAPIBackend,
@@ -249,7 +250,8 @@ const makeApi = api => {
     controllers,
     callback: makeExpressCallback,
     root: '/'
-  }).handleRequest(request, request, response));
+  });
+  router.use((request, response) => apiRoutes.handleRequest(request, request, response));
   return router;
 };
 
