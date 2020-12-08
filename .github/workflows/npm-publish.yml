@@ -15,8 +15,14 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-      - run: npm ci
-      - run: npm test
+        run: |
+          npm ci
+          npm run lint
+          npm test
+          npm run build --if-present
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          CI: true
 
   publish-gpr:
     needs: build
