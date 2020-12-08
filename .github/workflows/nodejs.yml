@@ -24,4 +24,5 @@ jobs:
         npm test
         npm run build --if-present
       env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         CI: true
