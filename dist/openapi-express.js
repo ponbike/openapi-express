@@ -212,7 +212,10 @@ const makeApi = api => {
 };
 
 exports.API = API;
+exports.apiSchema = apiSchema;
+exports.apiValidator = apiValidator;
 exports.buildOpenapiExpress = buildOpenapiExpress;
 exports.default = buildOpenapiExpress;
+exports.logger = logger;
 exports.makeApi = makeApi;
 //# sourceMappingURL=openapi-express.js.map

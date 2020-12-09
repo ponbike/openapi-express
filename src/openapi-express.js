@@ -104,5 +104,8 @@ export default buildOpenapiExpress
 export {
   buildOpenapiExpress,
   makeApi,
-  API
+  API,
+  logger,
+  apiValidator,
+  apiSchema
 }
