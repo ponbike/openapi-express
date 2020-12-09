@@ -210,5 +210,5 @@ const makeApi = api => {
 };
 
 export default buildOpenapiExpress;
-export { API, buildOpenapiExpress, makeApi };
+export { API, apiSchema, apiValidator, buildOpenapiExpress, logger, makeApi };
 //# sourceMappingURL=openapi-express.module.js.map
