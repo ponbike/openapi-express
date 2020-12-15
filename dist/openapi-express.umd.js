@@ -1,14 +1,15 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('express'), require('swagger-ui-express'), require('cors'), require('compression'), require('helmet'), require('express-pino-logger'), require('@ponbike/logger-stackdriver'), require('@hckrnews/openapi-routes'), require('openapi-backend'), require('@hckrnews/express-callback'), require('@hckrnews/validator')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'express', 'swagger-ui-express', 'cors', 'compression', 'helmet', 'express-pino-logger', '@ponbike/logger-stackdriver', '@hckrnews/openapi-routes', 'openapi-backend', '@hckrnews/express-callback', '@hckrnews/validator'], factory) :
-  (global = global || self, factory(global.openapiExpress = {}, global.express, global.swaggerUiExpress, global.cors, global.compression, global.helmet, global.expressPinoLogger, global.loggerStackdriver, global.openapiRoutes, global.openapiBackend, global.expressCallback, global.validator));
-}(this, (function (exports, express, swaggerUi, cors, compression, helmet, expressPino, loggerStackdriver, openapiRoutes, openapiBackend, expressCallback, validator) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('express'), require('swagger-ui-express'), require('cors'), require('compression'), require('helmet'), require('express-pino-logger'), require('@ponbike/logger-stackdriver'), require('@hckrnews/openapi-routes'), require('openapi-backend'), require('@hckrnews/express-callback'), require('@hckrnews/validator'), require('dotenv')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'express', 'swagger-ui-express', 'cors', 'compression', 'helmet', 'express-pino-logger', '@ponbike/logger-stackdriver', '@hckrnews/openapi-routes', 'openapi-backend', '@hckrnews/express-callback', '@hckrnews/validator', 'dotenv'], factory) :
+  (global = global || self, factory(global.openapiExpress = {}, global.express, global.swaggerUiExpress, global.cors, global.compression, global.helmet, global.expressPinoLogger, global.loggerStackdriver, global.openapiRoutes, global.openapiBackend, global.expressCallback, global.validator, global.dotenv));
+}(this, (function (exports, express, swaggerUi, cors, compression, helmet, expressPino, loggerStackdriver, openapiRoutes, openapiBackend, expressCallback, validator, dotenv) {
   express = express && Object.prototype.hasOwnProperty.call(express, 'default') ? express['default'] : express;
   swaggerUi = swaggerUi && Object.prototype.hasOwnProperty.call(swaggerUi, 'default') ? swaggerUi['default'] : swaggerUi;
   cors = cors && Object.prototype.hasOwnProperty.call(cors, 'default') ? cors['default'] : cors;
   compression = compression && Object.prototype.hasOwnProperty.call(compression, 'default') ? compression['default'] : compression;
   helmet = helmet && Object.prototype.hasOwnProperty.call(helmet, 'default') ? helmet['default'] : helmet;
   expressPino = expressPino && Object.prototype.hasOwnProperty.call(expressPino, 'default') ? expressPino['default'] : expressPino;
+  dotenv = dotenv && Object.prototype.hasOwnProperty.call(dotenv, 'default') ? dotenv['default'] : dotenv;
 
   class API {
     constructor() {
@@ -114,6 +115,7 @@
     '?staticFolder': 'string'
   };
 
+  dotenv.config();
   const logger = loggerStackdriver.logger();
   const apiValidator = new validator.Validator(apiSchema);
   /**

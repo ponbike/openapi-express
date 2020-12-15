@@ -11,7 +11,9 @@ import { makeExpressCallback } from '@hckrnews/express-callback'
 import { Validator } from '@hckrnews/validator'
 import API from './entities/api.js'
 import apiSchema from './api-schema.js'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const logger = stackdriver()
 const apiValidator = new Validator(apiSchema)
 

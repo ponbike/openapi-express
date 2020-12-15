@@ -11,6 +11,7 @@ var openapiRoutes = require('@hckrnews/openapi-routes');
 var openapiBackend = require('openapi-backend');
 var expressCallback = require('@hckrnews/express-callback');
 var validator = require('@hckrnews/validator');
+var dotenv = _interopDefault(require('dotenv'));
 
 class API {
   constructor() {
@@ -116,6 +117,7 @@ var apiSchema = {
   '?staticFolder': 'string'
 };
 
+dotenv.config();
 const logger = loggerStackdriver.logger();
 const apiValidator = new validator.Validator(apiSchema);
 /**
