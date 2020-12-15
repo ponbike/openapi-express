@@ -9,6 +9,7 @@ import { ApiRoutes } from '@hckrnews/openapi-routes';
 import { OpenAPIBackend } from 'openapi-backend';
 import { makeExpressCallback } from '@hckrnews/express-callback';
 import { Validator } from '@hckrnews/validator';
+import dotenv from 'dotenv';
 
 class API {
   constructor() {
@@ -114,6 +115,7 @@ var apiSchema = {
   '?staticFolder': 'string'
 };
 
+dotenv.config();
 const logger = logger$1();
 const apiValidator = new Validator(apiSchema);
 /**
