@@ -1,102 +1,102 @@
 {
-    "name": "@ponbike/openapi-express",
-    "version": "0.4.9",
-    "description": "OpenAPI express",
-    "files": [
-        "src/openapi-express.js",
-        "dist/openapi-express.js",
-        "dist/openapi-express.js.map",
-        "dist/openapi-express.module.js",
-        "dist/openapi-express.module.js.map",
-        "dist/openapi-express.modern.js",
-        "dist/openapi-express.modern.js.map",
-        "dist/openapi-express.umd.js",
-        "dist/openapi-express.umd.js.map"
-    ],
-    "source": "src/openapi-express.js",
-    "main": "dist/openapi-express.js",
-    "module": "dist/openapi-express.module.js",
-    "esmodule": "dist/openapi-express.modern.js",
-    "unpkg": "dist/openapi-express.umd.js",
-    "umd:main": "dist/openapi-express.umd.js",
-    "exports": {
-        ".": {
-            "require": "./dist/openapi-express.js",
-            "default": "./dist/openapi-express.module.js"
-        }
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ponbike/openapi-express.git"
-    },
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/"
-    },
-    "keywords": [
-        "javascript",
-        "express",
-        "openapi"
-    ],
-    "author": {
-        "name": "Pieter Wigboldus",
-        "url": "https://www.gazelle.nl/"
-    },
-    "bugs": {
-        "url": "https://github.com/ponbike/openapi-express/issues"
-    },
-    "homepage": "https://github.com/ponbike/openapi-express#readme",
-    "scripts": {
-        "build": "microbundle --target node",
-        "dev": "microbundle --target node watch",
-        "lint": "standard src",
-        "lint:fix": "standard src --fix",
-        "test": "jest",
-        "test:watch": "jest src --watch",
-        "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.12.10",
-        "@babel/preset-env": "^7.12.10",
-        "babel-eslint": "^10.1.0",
-        "babel-jest": "^26.6.3",
-        "codecov": "^3.8.1",
-        "coveralls": "^3.1.0",
-        "eslint": "^7.15.0",
-        "esm": "^3.2.25",
-        "jest": "^26.6.3",
-        "microbundle": "^0.12.3",
-        "prettier": "^2.2.0",
-        "standard": "^16.0.3",
-        "supertest": "^6.0.1"
-    },
-    "type": "module",
-    "engines": {
-        "node": ">= 14"
-    },
-    "dependencies": {
-        "@hckrnews/express-callback": "^1.0.0",
-        "@hckrnews/openapi-routes": "^1.2.1",
-        "@hckrnews/validator": "^2.1.7",
-        "@ponbike/logger-stackdriver": "^0.1.0",
-        "compression": "^1.7.4",
-        "cors": "^2.8.5",
-        "dotenv": "^8.2.0",
-        "express": "^4.17.1",
-        "express-pino-logger": "^5.0.0",
-        "helmet": "^4.2.0",
-        "openapi-backend": "^3.6.3",
-        "swagger-ui-express": "^4.1.5"
-    },
-    "standard": {
-        "parser": "babel-eslint",
-        "globals": [
-            "describe",
-            "it",
-            "expect",
-            "btoa"
-        ],
-        "ignore": [
-            "**/__fixtures__/"
-        ]
+  "name": "@ponbike/openapi-express",
+  "version": "0.4.10",
+  "description": "OpenAPI express",
+  "files": [
+    "src/openapi-express.js",
+    "dist/openapi-express.js",
+    "dist/openapi-express.js.map",
+    "dist/openapi-express.module.js",
+    "dist/openapi-express.module.js.map",
+    "dist/openapi-express.modern.js",
+    "dist/openapi-express.modern.js.map",
+    "dist/openapi-express.umd.js",
+    "dist/openapi-express.umd.js.map"
+  ],
+  "source": "src/openapi-express.js",
+  "main": "dist/openapi-express.js",
+  "module": "dist/openapi-express.module.js",
+  "esmodule": "dist/openapi-express.modern.js",
+  "unpkg": "dist/openapi-express.umd.js",
+  "umd:main": "dist/openapi-express.umd.js",
+  "exports": {
+    ".": {
+      "require": "./dist/openapi-express.js",
+      "default": "./dist/openapi-express.module.js"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ponbike/openapi-express.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "keywords": [
+    "javascript",
+    "express",
+    "openapi"
+  ],
+  "author": {
+    "name": "Pieter Wigboldus",
+    "url": "https://www.gazelle.nl/"
+  },
+  "bugs": {
+    "url": "https://github.com/ponbike/openapi-express/issues"
+  },
+  "homepage": "https://github.com/ponbike/openapi-express#readme",
+  "scripts": {
+    "build": "microbundle --target node",
+    "dev": "microbundle --target node watch",
+    "lint": "standard src",
+    "lint:fix": "standard src --fix",
+    "test": "jest",
+    "test:watch": "jest src --watch",
+    "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "codecov": "^3.8.1",
+    "coveralls": "^3.1.0",
+    "eslint": "^7.18.0",
+    "esm": "^3.2.25",
+    "jest": "^26.6.3",
+    "microbundle": "^0.12.3",
+    "prettier": "^2.2.0",
+    "standard": "^16.0.3",
+    "supertest": "^6.1.3"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">= 14"
+  },
+  "dependencies": {
+    "@hckrnews/express-callback": "^1.0.0",
+    "@hckrnews/validator": "^2.1.7",
+    "@ponbike/logger-stackdriver": "^0.1.0",
+    "@ponbike/openapi-routes": "^1.2.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-pino-logger": "^5.0.0",
+    "helmet": "^4.4.1",
+    "openapi-backend": "^3.7.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "describe",
+      "it",
+      "expect",
+      "btoa"
+    ],
+    "ignore": [
+      "**/__fixtures__/"
+    ]
+  }
 }

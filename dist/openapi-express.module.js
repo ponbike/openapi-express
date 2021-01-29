@@ -5,7 +5,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import expressPino from 'express-pino-logger';
 import { logger as logger$1 } from '@ponbike/logger-stackdriver';
-import { ApiRoutes } from '@hckrnews/openapi-routes';
+import { ApiRoutes } from '@ponbike/openapi-routes';
 import { OpenAPIBackend } from 'openapi-backend';
 import { makeExpressCallback } from '@hckrnews/express-callback';
 import { Validator } from '@hckrnews/validator';
