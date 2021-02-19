@@ -12,6 +12,7 @@ var openapiBackend = require('openapi-backend');
 var expressCallback = require('@hckrnews/express-callback');
 var validator = require('@hckrnews/validator');
 var dotenv = _interopDefault(require('dotenv'));
+var bodyParser = _interopDefault(require('body-parser'));
 
 class API {
   constructor() {
@@ -128,6 +129,7 @@ const apiValidator = new validator.Validator(apiSchema);
  * @param {array} apis
  * @param {array} poweredBy
  * @param {string} staticFolder
+ * @param {string} limit
  *
  * @return {object}
  */
@@ -137,7 +139,8 @@ const buildOpenapiExpress = ({
   version,
   apis,
   poweredBy = 'Pon.Bike',
-  staticFolder = null
+  staticFolder = null,
+  limit = '100mb'
 }) => {
   if (!apiValidator.validate({
     name,
@@ -155,6 +158,9 @@ const buildOpenapiExpress = ({
   app.use(compression());
   app.use(helmet());
   app.use(express.json());
+  app.use(bodyParser.json({
+    limit
+  }));
   app.use((request, response, next) => {
     response.setHeader('X-Powered-By', poweredBy);
     response.setHeader('X-Version', version);

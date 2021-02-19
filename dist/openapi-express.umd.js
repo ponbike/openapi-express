@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('express'), require('swagger-ui-express'), require('cors'), require('compression'), require('helmet'), require('express-pino-logger'), require('@ponbike/logger-stackdriver'), require('@ponbike/openapi-routes'), require('openapi-backend'), require('@hckrnews/express-callback'), require('@hckrnews/validator'), require('dotenv')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'express', 'swagger-ui-express', 'cors', 'compression', 'helmet', 'express-pino-logger', '@ponbike/logger-stackdriver', '@ponbike/openapi-routes', 'openapi-backend', '@hckrnews/express-callback', '@hckrnews/validator', 'dotenv'], factory) :
-  (global = global || self, factory(global.openapiExpress = {}, global.express, global.swaggerUiExpress, global.cors, global.compression, global.helmet, global.expressPinoLogger, global.loggerStackdriver, global.openapiRoutes, global.openapiBackend, global.expressCallback, global.validator, global.dotenv));
-}(this, (function (exports, express, swaggerUi, cors, compression, helmet, expressPino, loggerStackdriver, openapiRoutes, openapiBackend, expressCallback, validator, dotenv) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('express'), require('swagger-ui-express'), require('cors'), require('compression'), require('helmet'), require('express-pino-logger'), require('@ponbike/logger-stackdriver'), require('@ponbike/openapi-routes'), require('openapi-backend'), require('@hckrnews/express-callback'), require('@hckrnews/validator'), require('dotenv'), require('body-parser')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'express', 'swagger-ui-express', 'cors', 'compression', 'helmet', 'express-pino-logger', '@ponbike/logger-stackdriver', '@ponbike/openapi-routes', 'openapi-backend', '@hckrnews/express-callback', '@hckrnews/validator', 'dotenv', 'body-parser'], factory) :
+  (global = global || self, factory(global.openapiExpress = {}, global.express, global.swaggerUiExpress, global.cors, global.compression, global.helmet, global.expressPinoLogger, global.loggerStackdriver, global.openapiRoutes, global.openapiBackend, global.expressCallback, global.validator, global.dotenv, global.bodyParser));
+}(this, (function (exports, express, swaggerUi, cors, compression, helmet, expressPino, loggerStackdriver, openapiRoutes, openapiBackend, expressCallback, validator, dotenv, bodyParser) {
   express = express && Object.prototype.hasOwnProperty.call(express, 'default') ? express['default'] : express;
   swaggerUi = swaggerUi && Object.prototype.hasOwnProperty.call(swaggerUi, 'default') ? swaggerUi['default'] : swaggerUi;
   cors = cors && Object.prototype.hasOwnProperty.call(cors, 'default') ? cors['default'] : cors;
@@ -10,6 +10,7 @@
   helmet = helmet && Object.prototype.hasOwnProperty.call(helmet, 'default') ? helmet['default'] : helmet;
   expressPino = expressPino && Object.prototype.hasOwnProperty.call(expressPino, 'default') ? expressPino['default'] : expressPino;
   dotenv = dotenv && Object.prototype.hasOwnProperty.call(dotenv, 'default') ? dotenv['default'] : dotenv;
+  bodyParser = bodyParser && Object.prototype.hasOwnProperty.call(bodyParser, 'default') ? bodyParser['default'] : bodyParser;
 
   class API {
     constructor() {
@@ -126,6 +127,7 @@
    * @param {array} apis
    * @param {array} poweredBy
    * @param {string} staticFolder
+   * @param {string} limit
    *
    * @return {object}
    */
@@ -135,7 +137,8 @@
     version,
     apis,
     poweredBy = 'Pon.Bike',
-    staticFolder = null
+    staticFolder = null,
+    limit = '100mb'
   }) => {
     if (!apiValidator.validate({
       name,
@@ -153,6 +156,9 @@
     app.use(compression());
     app.use(helmet());
     app.use(express.json());
+    app.use(bodyParser.json({
+      limit
+    }));
     app.use((request, response, next) => {
       response.setHeader('X-Powered-By', poweredBy);
       response.setHeader('X-Version', version);
