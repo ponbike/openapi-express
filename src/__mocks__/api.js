@@ -13,7 +13,8 @@ const app = buildOpenapiExpress({
       secret: 'secret'
     })
   ],
-  staticFolder: 'src/__fixtures__'
+  staticFolder: 'src/__fixtures__',
+  limit: '1mb'
 })
 
 export default app

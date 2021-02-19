@@ -1,3 +1,5 @@
+const generateContent = (size) => Array(size).fill().map(_ => String.fromCharCode(33 + Math.random() * (127 - 33))).join('')
+
 export default ({
   getStatus: async () => ({
     statusCode: 200,
@@ -14,7 +16,8 @@ export default ({
       status: true,
       version: '1.2.3',
       timestamp: new Date(),
-      message: 'ok'
+      message: 'ok',
+      content: generateContent(2048)
     }
   }),
   postTest: async () => ({
