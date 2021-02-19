@@ -10,7 +10,6 @@ import { OpenAPIBackend } from 'openapi-backend';
 import { makeExpressCallback } from '@hckrnews/express-callback';
 import { Validator } from '@hckrnews/validator';
 import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
 
 class API {
   constructor() {
@@ -155,8 +154,7 @@ const buildOpenapiExpress = ({
   app.use(cors());
   app.use(compression());
   app.use(helmet());
-  app.use(express.json());
-  app.use(bodyParser.json({
+  app.use(express.json({
     limit: _limit
   }));
   app.use((request, response, next) => {
