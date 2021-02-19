@@ -5,7 +5,7 @@ With this package you can easy connect your openapi spec to controllers.
 ## Example usage
 
 ```
-import { buildOpenapiExpress, API } from '../openapi-express.js'
+import { buildOpenapiExpress, API } from '@ponbike/openapi-express'
 
 const app = buildOpenapiExpress({
     name: 'test',
@@ -18,7 +18,9 @@ const app = buildOpenapiExpress({
             secret: 'secret'
         })
     ],
-    staticFolder: 'public'
+    staticFolder: 'public',
+    limit: '100mb',
+    poweredBy: 'Pon.Bike'
 })
 ```
 
@@ -90,3 +92,15 @@ for every route where `apiKey` is set in the OpenAPI specification.
 The field `staticFolder` should be a string, but is optional.
 If you have some static files, e.g. a favicon, you can set here the path to the folder.
 If there is a folder public in the root of the project folder, you can set the value to 'public'.
+
+### limit
+
+The field `limit` should be a string, but is optional.
+The default value is `100mb`.
+It will set the the body parser limit, e.g. `app.use(bodyParser.json({ limit: '100mb' }))`.
+
+### poweredBy
+
+The field `poweredBy` should be a string, but is optional.
+The default value is `Pon.Bike`.
+It will set a header `X-Powered-By`.

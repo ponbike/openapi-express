@@ -12,6 +12,7 @@ import { Validator } from '@hckrnews/validator'
 import API from './entities/api.js'
 import apiSchema from './api-schema.js'
 import dotenv from 'dotenv'
+import bodyParser from 'body-parser'
 
 dotenv.config()
 const logger = stackdriver()
@@ -25,10 +26,11 @@ const apiValidator = new Validator(apiSchema)
  * @param {array} apis
  * @param {array} poweredBy
  * @param {string} staticFolder
+ * @param {string} limit
  *
  * @return {object}
  */
-const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', staticFolder = null }) => {
+const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', staticFolder = null, limit = '100mb' }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
     throw new Error('invalid api details, field ' + apiValidator.errors[0][0] + ' should be a ' + apiValidator.errors[0][1])
   }
@@ -39,6 +41,7 @@ const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', stat
   app.use(compression())
   app.use(helmet())
   app.use(express.json())
+  app.use(bodyParser.json({ limit }))
   app.use((request, response, next) => {
     response.setHeader('X-Powered-By', poweredBy)
     response.setHeader('X-Version', version)
