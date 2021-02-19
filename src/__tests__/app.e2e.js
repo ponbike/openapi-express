@@ -23,6 +23,15 @@ describe('Test the server', () => {
     done()
   })
 
+  it('It should return status 200 for the post test page (/v1/get-test/?)', async (done) => {
+    const response = await request.post('/v1/get-test/42')
+      .set('x-api-key', process.env.SECRET)
+
+    expect(response.status).toBe(200)
+    expect(response.body.message).toEqual('ok')
+    done()
+  })
+
   it('It should return status 404 for a unknown page (/v1/xyz)', async (done) => {
     const response = await request.get('/v1/xyz')
 

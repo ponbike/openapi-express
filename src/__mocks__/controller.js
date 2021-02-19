@@ -29,6 +29,15 @@ export default ({
       message: 'ok'
     }
   }),
+  postTest2: async () => ({
+    statusCode: 200,
+    body: {
+      status: true,
+      version: '1.2.3',
+      timestamp: new Date(),
+      message: 'ok'
+    }
+  }),
   notFound: async () => ({
     statusCode: 404,
     body: {
