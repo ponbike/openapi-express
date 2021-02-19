@@ -12,7 +12,6 @@ var openapiBackend = require('openapi-backend');
 var expressCallback = require('@hckrnews/express-callback');
 var validator = require('@hckrnews/validator');
 var dotenv = _interopDefault(require('dotenv'));
-var bodyParser = _interopDefault(require('body-parser'));
 
 class API {
   constructor() {
@@ -157,8 +156,7 @@ const buildOpenapiExpress = ({
   app.use(cors());
   app.use(compression());
   app.use(helmet());
-  app.use(express.json());
-  app.use(bodyParser.json({
+  app.use(express.json({
     limit
   }));
   app.use((request, response, next) => {
