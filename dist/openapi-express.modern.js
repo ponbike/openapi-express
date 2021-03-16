@@ -127,6 +127,7 @@ const apiValidator = new Validator(apiSchema);
  * @param {array} poweredBy
  * @param {string} staticFolder
  * @param {string} limit
+ * @param {object} loggerOptions
  *
  * @return {object}
  */
@@ -137,7 +138,8 @@ const buildOpenapiExpress = ({
   apis,
   poweredBy: _poweredBy = 'Pon.Bike',
   staticFolder: _staticFolder = null,
-  limit: _limit = '100mb'
+  limit: _limit = '100mb',
+  loggerOptions: _loggerOptions = {}
 }) => {
   if (!apiValidator.validate({
     name,
@@ -150,6 +152,7 @@ const buildOpenapiExpress = ({
   }
 
   const app = express();
+  const apiLogger = logger$1(_loggerOptions);
   app.set('name', name);
   app.use(cors());
   app.use(compression());
@@ -163,11 +166,11 @@ const buildOpenapiExpress = ({
     next();
   });
   app.use(expressPino({
-    logger
+    logger: apiLogger
   }));
-  app.set('logger', logger);
+  app.set('logger', apiLogger);
   apis.forEach(api => {
-    const apiRoutes = makeApi(api);
+    const apiRoutes = makeApi(api, apiLogger);
     app.use('/' + api.version, apiRoutes);
   });
 
@@ -188,12 +191,13 @@ const buildOpenapiExpress = ({
  * Connect the openapi spec to the controllers.
  *
  * @param {object} api
+ * @param {P.Logger} apiLogger
  *
  * @return {object}
  */
 
 
-const makeApi = api => {
+const makeApi = (api, apiLogger) => {
   const {
     specification,
     controllers,
@@ -208,7 +212,7 @@ const makeApi = api => {
     specification,
     secret,
     Backend: OpenAPIBackend,
-    logger,
+    logger: apiLogger,
     controllers,
     callback: makeExpressCallback,
     root: '/'

@@ -26,14 +26,17 @@ const apiValidator = new Validator(apiSchema)
  * @param {array} poweredBy
  * @param {string} staticFolder
  * @param {string} limit
+ * @param {object} loggerOptions
  *
  * @return {object}
  */
-const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', staticFolder = null, limit = '100mb' }) => {
+const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', staticFolder = null, limit = '100mb', loggerOptions = {} }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
     throw new Error('invalid api details, field ' + apiValidator.errors[0][0] + ' should be a ' + apiValidator.errors[0][1])
   }
+
   const app = express()
+  const apiLogger = stackdriver(loggerOptions)
 
   app.set('name', name)
   app.use(cors())
@@ -45,11 +48,11 @@ const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', stat
     response.setHeader('X-Version', version)
     next()
   })
-  app.use(expressPino({ logger }))
-  app.set('logger', logger)
+  app.use(expressPino({ logger: apiLogger }))
+  app.set('logger', apiLogger)
 
   apis.forEach((api) => {
-    const apiRoutes = makeApi(api)
+    const apiRoutes = makeApi(api, apiLogger)
     app.use('/' + api.version, apiRoutes)
   })
 
@@ -72,10 +75,11 @@ const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', stat
  * Connect the openapi spec to the controllers.
  *
  * @param {object} api
+ * @param {P.Logger} apiLogger
  *
  * @return {object}
  */
-const makeApi = (api) => {
+const makeApi = (api, apiLogger) => {
   const { specification, controllers, secret } = API.create(api)
   const router = express.Router()
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification))
@@ -86,7 +90,7 @@ const makeApi = (api) => {
     specification,
     secret,
     Backend: OpenAPIBackend,
-    logger,
+    logger: apiLogger,
     controllers,
     callback: makeExpressCallback,
     root: '/'
