@@ -20,7 +20,10 @@ const app = buildOpenapiExpress({
     ],
     staticFolder: 'public',
     limit: '100mb',
-    poweredBy: 'Pon.Bike'
+    poweredBy: 'Pon.Bike',
+    loggerOptions: {
+        level: 'info'
+    }
 })
 ```
 
