@@ -74,7 +74,7 @@
     "node": ">= 14"
   },
   "dependencies": {
-    "@hckrnews/express-callback": "^1.0.0",
+    "@hckrnews/express-callback": "^1.1.0",
     "@hckrnews/validator": "^2.1.7",
     "@ponbike/logger-stackdriver": "^0.1.0",
     "@ponbike/openapi-routes": "^2.0.0",
