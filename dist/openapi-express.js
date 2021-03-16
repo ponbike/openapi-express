@@ -1,17 +1,25 @@
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var express = _interopDefault(require('express'));
-var swaggerUi = _interopDefault(require('swagger-ui-express'));
-var cors = _interopDefault(require('cors'));
-var compression = _interopDefault(require('compression'));
-var helmet = _interopDefault(require('helmet'));
-var expressPino = _interopDefault(require('express-pino-logger'));
+var express = require('express');
+var swaggerUi = require('swagger-ui-express');
+var cors = require('cors');
+var compression = require('compression');
+var helmet = require('helmet');
+var expressPino = require('express-pino-logger');
 var loggerStackdriver = require('@ponbike/logger-stackdriver');
 var openapiRoutes = require('@ponbike/openapi-routes');
 var openapiBackend = require('openapi-backend');
 var expressCallback = require('@hckrnews/express-callback');
 var validator = require('@hckrnews/validator');
-var dotenv = _interopDefault(require('dotenv'));
+var dotenv = require('dotenv');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var express__default = /*#__PURE__*/_interopDefaultLegacy(express);
+var swaggerUi__default = /*#__PURE__*/_interopDefaultLegacy(swaggerUi);
+var cors__default = /*#__PURE__*/_interopDefaultLegacy(cors);
+var compression__default = /*#__PURE__*/_interopDefaultLegacy(compression);
+var helmet__default = /*#__PURE__*/_interopDefaultLegacy(helmet);
+var expressPino__default = /*#__PURE__*/_interopDefaultLegacy(expressPino);
+var dotenv__default = /*#__PURE__*/_interopDefaultLegacy(dotenv);
 
 class API {
   constructor() {
@@ -117,7 +125,7 @@ var apiSchema = {
   '?staticFolder': 'string'
 };
 
-dotenv.config();
+dotenv__default['default'].config();
 const logger = loggerStackdriver.logger();
 const apiValidator = new validator.Validator(apiSchema);
 /**
@@ -151,12 +159,12 @@ const buildOpenapiExpress = ({
     throw new Error('invalid api details, field ' + apiValidator.errors[0][0] + ' should be a ' + apiValidator.errors[0][1]);
   }
 
-  const app = express();
+  const app = express__default['default']();
   app.set('name', name);
-  app.use(cors());
-  app.use(compression());
-  app.use(helmet());
-  app.use(express.json({
+  app.use(cors__default['default']());
+  app.use(compression__default['default']());
+  app.use(helmet__default['default']());
+  app.use(express__default['default'].json({
     limit
   }));
   app.use((request, response, next) => {
@@ -164,7 +172,7 @@ const buildOpenapiExpress = ({
     response.setHeader('X-Version', version);
     next();
   });
-  app.use(expressPino({
+  app.use(expressPino__default['default']({
     logger
   }));
   app.set('logger', logger);
@@ -174,7 +182,7 @@ const buildOpenapiExpress = ({
   });
 
   if (staticFolder) {
-    app.use(express.static(staticFolder));
+    app.use(express__default['default'].static(staticFolder));
   }
 
   app.use(function (request, response, next) {
@@ -201,10 +209,12 @@ const makeApi = api => {
     controllers,
     secret
   } = API.create(api);
-  const router = express.Router();
-  router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification));
+  const router = express__default['default'].Router();
+  router.use('/swagger', swaggerUi__default['default'].serve, swaggerUi__default['default'].setup(specification));
   router.get('/api-docs', (request, response) => response.json(specification));
-  const apiRoutes = openapiRoutes.ApiRoutes.create({
+  const {
+    api: apiRoutes
+  } = openapiRoutes.ApiRoutes.create({
     specification,
     secret,
     Backend: openapiBackend.OpenAPIBackend,

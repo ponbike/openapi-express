@@ -202,7 +202,9 @@ const makeApi = api => {
   const router = express.Router();
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification));
   router.get('/api-docs', (request, response) => response.json(specification));
-  const apiRoutes = ApiRoutes.create({
+  const {
+    api: apiRoutes
+  } = ApiRoutes.create({
     specification,
     secret,
     Backend: OpenAPIBackend,

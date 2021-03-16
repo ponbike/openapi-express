@@ -82,7 +82,7 @@ const makeApi = (api) => {
   router.get('/api-docs', (request, response) =>
     response.json(specification)
   )
-  const apiRoutes = ApiRoutes.create({
+  const { api: apiRoutes } = ApiRoutes.create({
     specification,
     secret,
     Backend: OpenAPIBackend,

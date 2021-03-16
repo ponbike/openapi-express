@@ -3,13 +3,15 @@
   typeof define === 'function' && define.amd ? define(['exports', 'express', 'swagger-ui-express', 'cors', 'compression', 'helmet', 'express-pino-logger', '@ponbike/logger-stackdriver', '@ponbike/openapi-routes', 'openapi-backend', '@hckrnews/express-callback', '@hckrnews/validator', 'dotenv'], factory) :
   (global = global || self, factory(global.openapiExpress = {}, global.express, global.swaggerUiExpress, global.cors, global.compression, global.helmet, global.expressPinoLogger, global.loggerStackdriver, global.openapiRoutes, global.openapiBackend, global.expressCallback, global.validator, global.dotenv));
 }(this, (function (exports, express, swaggerUi, cors, compression, helmet, expressPino, loggerStackdriver, openapiRoutes, openapiBackend, expressCallback, validator, dotenv) {
-  express = express && Object.prototype.hasOwnProperty.call(express, 'default') ? express['default'] : express;
-  swaggerUi = swaggerUi && Object.prototype.hasOwnProperty.call(swaggerUi, 'default') ? swaggerUi['default'] : swaggerUi;
-  cors = cors && Object.prototype.hasOwnProperty.call(cors, 'default') ? cors['default'] : cors;
-  compression = compression && Object.prototype.hasOwnProperty.call(compression, 'default') ? compression['default'] : compression;
-  helmet = helmet && Object.prototype.hasOwnProperty.call(helmet, 'default') ? helmet['default'] : helmet;
-  expressPino = expressPino && Object.prototype.hasOwnProperty.call(expressPino, 'default') ? expressPino['default'] : expressPino;
-  dotenv = dotenv && Object.prototype.hasOwnProperty.call(dotenv, 'default') ? dotenv['default'] : dotenv;
+  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+  var express__default = /*#__PURE__*/_interopDefaultLegacy(express);
+  var swaggerUi__default = /*#__PURE__*/_interopDefaultLegacy(swaggerUi);
+  var cors__default = /*#__PURE__*/_interopDefaultLegacy(cors);
+  var compression__default = /*#__PURE__*/_interopDefaultLegacy(compression);
+  var helmet__default = /*#__PURE__*/_interopDefaultLegacy(helmet);
+  var expressPino__default = /*#__PURE__*/_interopDefaultLegacy(expressPino);
+  var dotenv__default = /*#__PURE__*/_interopDefaultLegacy(dotenv);
 
   class API {
     constructor() {
@@ -115,7 +117,7 @@
     '?staticFolder': 'string'
   };
 
-  dotenv.config();
+  dotenv__default['default'].config();
   const logger = loggerStackdriver.logger();
   const apiValidator = new validator.Validator(apiSchema);
   /**
@@ -149,12 +151,12 @@
       throw new Error('invalid api details, field ' + apiValidator.errors[0][0] + ' should be a ' + apiValidator.errors[0][1]);
     }
 
-    const app = express();
+    const app = express__default['default']();
     app.set('name', name);
-    app.use(cors());
-    app.use(compression());
-    app.use(helmet());
-    app.use(express.json({
+    app.use(cors__default['default']());
+    app.use(compression__default['default']());
+    app.use(helmet__default['default']());
+    app.use(express__default['default'].json({
       limit
     }));
     app.use((request, response, next) => {
@@ -162,7 +164,7 @@
       response.setHeader('X-Version', version);
       next();
     });
-    app.use(expressPino({
+    app.use(expressPino__default['default']({
       logger
     }));
     app.set('logger', logger);
@@ -172,7 +174,7 @@
     });
 
     if (staticFolder) {
-      app.use(express.static(staticFolder));
+      app.use(express__default['default'].static(staticFolder));
     }
 
     app.use(function (request, response, next) {
@@ -199,10 +201,12 @@
       controllers,
       secret
     } = API.create(api);
-    const router = express.Router();
-    router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification));
+    const router = express__default['default'].Router();
+    router.use('/swagger', swaggerUi__default['default'].serve, swaggerUi__default['default'].setup(specification));
     router.get('/api-docs', (request, response) => response.json(specification));
-    const apiRoutes = openapiRoutes.ApiRoutes.create({
+    const {
+      api: apiRoutes
+    } = openapiRoutes.ApiRoutes.create({
       specification,
       secret,
       Backend: openapiBackend.OpenAPIBackend,
