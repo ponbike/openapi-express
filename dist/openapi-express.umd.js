@@ -19,6 +19,8 @@
       this.specification = {};
       this.controllers = {};
       this.secret = null;
+      this.requestValidation = false;
+      this.responseValidation = false;
     }
     /**
      * Set the version
@@ -41,7 +43,7 @@
      */
 
 
-    setSpecifivation(specification) {
+    setSpecification(specification) {
       if (!specification || specification.constructor !== Object) {
         throw new Error('Invalid OpenAPI specification');
       }
@@ -65,7 +67,7 @@
     /**
      * Set the secret
      *
-     * @param {string} scret
+     * @param {string} secret
      */
 
 
@@ -77,12 +79,42 @@
       this.secret = secret;
     }
     /**
+     * set the request validation
+     * 
+     * @param {boolean} val
+     */
+
+
+    setRequestValidation(val) {
+      if (val.constructor !== Boolean) {
+        throw new Error('Invalid request validation');
+      }
+
+      this.requestValidation = val;
+    }
+    /**
+     * set the response validation
+     * 
+     * @param {boolean} val
+     */
+
+
+    setResponseValidation(val) {
+      if (val.constructor !== Boolean) {
+        throw new Error('Invalid response validation');
+      }
+
+      this.responseValidation = val;
+    }
+    /**
      * Create an API entity
      *
      * @param {string} version
      * @param {object} specification
      * @param {object} controllers
      * @param {string} secret
+     * @param {boolean} requestValidation
+     * @param {boolean} responseValidation
      *
      * @return {object}
      */
@@ -92,13 +124,17 @@
       version,
       specification,
       controllers,
-      secret
+      secret,
+      requestValidation = false,
+      responseValidation = false
     }) {
       const api = new API();
       api.setVersion(version);
-      api.setSpecifivation(specification);
+      api.setSpecification(specification);
       api.setControllers(controllers);
       api.setSecret(secret);
+      api.setRequestValidation(requestValidation);
+      api.setResponseValidation(responseValidation);
       return api;
     }
 
@@ -111,9 +147,12 @@
       version: 'string',
       specification: 'object',
       controllers: 'object',
+      requestValidation: 'boolean',
+      //    responseValidation: 'boolean',
       '?secret': 'string'
     },
     '?poweredBy': 'string',
+    '?limit': 'string',
     '?staticFolder': 'string'
   };
 
@@ -126,7 +165,7 @@
    * @param {string} name
    * @param {string} version
    * @param {array} apis
-   * @param {array} poweredBy
+   * @param {string} poweredBy
    * @param {string} staticFolder
    * @param {string} limit
    * @param {object} loggerOptions
@@ -203,7 +242,9 @@
     const {
       specification,
       controllers,
-      secret
+      secret,
+      requestValidation = false,
+      responseValidation = false
     } = API.create(api);
     const router = express__default['default'].Router();
     router.use('/swagger', swaggerUi__default['default'].serve, swaggerUi__default['default'].setup(specification));
@@ -217,7 +258,9 @@
       logger: apiLogger,
       controllers,
       callback: expressCallback.makeExpressCallback,
-      root: '/'
+      root: '/',
+      responseValidation,
+      requestValidation
     });
     router.use((request, response) => apiRoutes.handleRequest(request, request, response));
     return router;

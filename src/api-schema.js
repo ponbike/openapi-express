@@ -5,8 +5,11 @@ export default {
     version: 'string',
     specification: 'object',
     controllers: 'object',
+    requestValidation: 'boolean',
+//    responseValidation: 'boolean',
     '?secret': 'string'
   },
   '?poweredBy': 'string',
+  '?limit': 'string',
   '?staticFolder': 'string'
 }
