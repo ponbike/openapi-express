@@ -78,7 +78,7 @@ class API {
   }
   /**
    * set the request validation
-   * 
+   *
    * @param {boolean} val
    */
 
@@ -92,7 +92,7 @@ class API {
   }
   /**
    * set the response validation
-   * 
+   *
    * @param {boolean} val
    */
 

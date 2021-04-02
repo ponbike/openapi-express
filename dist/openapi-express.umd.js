@@ -80,7 +80,7 @@
     }
     /**
      * set the request validation
-     * 
+     *
      * @param {boolean} val
      */
 
@@ -94,7 +94,7 @@
     }
     /**
      * set the response validation
-     * 
+     *
      * @param {boolean} val
      */
 

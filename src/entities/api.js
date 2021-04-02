@@ -62,10 +62,10 @@ class API {
 
   /**
    * set the request validation
-   * 
+   *
    * @param {boolean} val
    */
-  setRequestValidation(val) {
+  setRequestValidation (val) {
     if (val.constructor !== Boolean) {
       throw new Error('Invalid request validation')
     }
@@ -74,10 +74,10 @@ class API {
 
   /**
    * set the response validation
-   * 
+   *
    * @param {boolean} val
    */
-  setResponseValidation(val) {
+  setResponseValidation (val) {
     if (val.constructor !== Boolean) {
       throw new Error('Invalid response validation')
     }
