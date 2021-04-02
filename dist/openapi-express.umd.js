@@ -148,7 +148,7 @@
       specification: 'object',
       controllers: 'object',
       requestValidation: 'boolean',
-      //    responseValidation: 'boolean',
+      responseValidation: 'boolean',
       '?secret': 'string'
     },
     '?poweredBy': 'string',
