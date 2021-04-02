@@ -23,7 +23,7 @@ const apiValidator = new Validator(apiSchema)
  * @param {string} name
  * @param {string} version
  * @param {array} apis
- * @param {array} poweredBy
+ * @param {string} poweredBy
  * @param {string} staticFolder
  * @param {string} limit
  * @param {object} loggerOptions
@@ -80,12 +80,13 @@ const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', stat
  * @return {object}
  */
 const makeApi = (api, apiLogger) => {
-  const { specification, controllers, secret } = API.create(api)
+  const { specification, controllers, secret, requestValidation = false, responseValidation = false } = API.create(api)
   const router = express.Router()
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification))
   router.get('/api-docs', (request, response) =>
     response.json(specification)
   )
+
   const { api: apiRoutes } = ApiRoutes.create({
     specification,
     secret,
@@ -93,7 +94,9 @@ const makeApi = (api, apiLogger) => {
     logger: apiLogger,
     controllers,
     callback: makeExpressCallback,
-    root: '/'
+    root: '/',
+    responseValidation,
+    requestValidation
   })
 
   router.use((request, response) =>
