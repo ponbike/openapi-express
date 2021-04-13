@@ -203,6 +203,7 @@ const buildOpenapiExpress = ({
   const app = express__default['default']();
   const apiLogger = loggerStackdriver.logger(loggerOptions);
   app.set('name', name);
+  app.set('version', version);
   app.use(cors__default['default']());
   app.use(compression__default['default']());
   app.use(helmet__default['default']());

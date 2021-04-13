@@ -193,6 +193,7 @@ const buildOpenapiExpress = ({
   const app = express();
   const apiLogger = logger$1(loggerOptions);
   app.set('name', name);
+  app.set('version', version);
   app.use(cors());
   app.use(compression());
   app.use(helmet());
