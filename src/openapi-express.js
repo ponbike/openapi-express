@@ -39,6 +39,7 @@ const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', stat
   const apiLogger = stackdriver(loggerOptions)
 
   app.set('name', name)
+  app.set('version', version)
   app.use(cors())
   app.use(compression())
   app.use(helmet())
