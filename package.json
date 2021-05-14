@@ -1,30 +1,11 @@
 {
   "name": "@ponbike/openapi-express",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "OpenAPI express",
   "files": [
-    "src/openapi-express.js",
-    "dist/openapi-express.js",
-    "dist/openapi-express.js.map",
-    "dist/openapi-express.module.js",
-    "dist/openapi-express.module.js.map",
-    "dist/openapi-express.modern.js",
-    "dist/openapi-express.modern.js.map",
-    "dist/openapi-express.umd.js",
-    "dist/openapi-express.umd.js.map"
+    "src/openapi-express.js"
   ],
-  "source": "src/openapi-express.js",
-  "main": "dist/openapi-express.js",
-  "module": "dist/openapi-express.module.js",
-  "esmodule": "dist/openapi-express.modern.js",
-  "unpkg": "dist/openapi-express.umd.js",
-  "umd:main": "dist/openapi-express.umd.js",
-  "exports": {
-    ".": {
-      "require": "./dist/openapi-express.js",
-      "default": "./dist/openapi-express.module.js"
-    }
-  },
+  "main": "src/openapi-express.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/ponbike/openapi-express.git"
@@ -46,8 +27,6 @@
   },
   "homepage": "https://github.com/ponbike/openapi-express#readme",
   "scripts": {
-    "build": "microbundle --target node",
-    "dev": "microbundle --target node watch",
     "lint": "standard src",
     "lint:fix": "standard src --fix",
     "test": "jest",
@@ -56,6 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.0",
     "@babel/preset-env": "^7.12.11",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
@@ -75,7 +55,7 @@
   },
   "dependencies": {
     "@hckrnews/express-callback": "^2.1.1",
-    "@hckrnews/validator": "^4.0.0",
+    "@hckrnews/validator": "^5.0.1",
     "@ponbike/logger-stackdriver": "^0.1.0",
     "@ponbike/openapi-routes": "^3.1.0",
     "compression": "^1.7.4",
