@@ -22,6 +22,7 @@ jobs:
         npm ci
         npm run vulnerabilities
         npm run lint
+        npm run cpd
         npm test
       env:
         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
