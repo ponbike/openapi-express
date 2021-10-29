@@ -1,5 +1,5 @@
 import { expect, describe, it } from '@jest/globals'
-import buildOpenapiExpress from '../openapi-express.js'
+import { buildOpenapiExpress } from '../openapi-express.js'
 
 describe('OpenAPI Express build test', () => {
   it('It should generate the api and contain the name', async () => {

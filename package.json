@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-express",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "OpenAPI express",
   "files": [
     "src/openapi-express.js",
@@ -29,8 +29,8 @@
   },
   "homepage": "https://github.com/ponbike/openapi-express#readme",
   "scripts": {
-    "lint": "standard src",
-    "lint:fix": "standard src --fix",
+    "lint": "ponstandard src",
+    "lint:fix": "ponstandard src --fix",
     "test": "jest",
     "test:watch": "jest src --watch",
     "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
