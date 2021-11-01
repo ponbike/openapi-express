@@ -96,7 +96,14 @@ class API {
    *
    * @return {object}
    */
-  static create ({ version, specification, controllers, secret, requestValidation = false, responseValidation = false }) {
+  static create ({
+    version,
+    specification,
+    controllers,
+    secret,
+    requestValidation = false,
+    responseValidation = false
+  }) {
     const api = new API()
 
     api.setVersion(version)

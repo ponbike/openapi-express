@@ -9,9 +9,9 @@ import { ApiRoutes } from '@ponbike/openapi-routes'
 import { OpenAPIBackend } from 'openapi-backend'
 import { makeExpressCallback } from '@hckrnews/express-callback'
 import { Validator } from '@hckrnews/validator'
+import dotenv from 'dotenv'
 import API from './entities/api.js'
 import apiSchema from './api-schema.js'
-import dotenv from 'dotenv'
 
 dotenv.config()
 const logger = stackdriver()
@@ -32,7 +32,7 @@ const apiValidator = new Validator(apiSchema)
  */
 const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', staticFolder = null, limit = '100mb', loggerOptions = {} }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
-    throw new Error('invalid api details, field ' + apiValidator.errors[0][0] + ' should be a ' + apiValidator.errors[0][1])
+    throw new Error(`invalid api details, field ${apiValidator.errors[0][0]} should be a ${apiValidator.errors[0][1]}`)
   }
 
   const app = express()
@@ -54,14 +54,14 @@ const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', stat
 
   apis.forEach((api) => {
     const apiRoutes = makeApi(api, apiLogger)
-    app.use('/' + api.version, apiRoutes)
+    app.use(`/${api.version}`, apiRoutes)
   })
 
   if (staticFolder) {
     app.use(express.static(staticFolder))
   }
 
-  app.use(function (request, response, next) {
+  app.use((request, response, next) => {
     response.status(404).send({
       status: 404,
       timestamp: new Date(),
@@ -84,9 +84,7 @@ const makeApi = (api, apiLogger) => {
   const { specification, controllers, secret, requestValidation = false, responseValidation = false } = API.create(api)
   const router = express.Router()
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification))
-  router.get('/api-docs', (request, response) =>
-    response.json(specification)
-  )
+  router.get('/api-docs', (request, response) => response.json(specification))
 
   const { api: apiRoutes } = ApiRoutes.create({
     specification,
@@ -100,13 +98,11 @@ const makeApi = (api, apiLogger) => {
     requestValidation
   })
 
-  router.use((request, response) =>
-    apiRoutes.handleRequest(
-      request,
-      request,
-      response
-    )
-  )
+  router.use((request, response) => apiRoutes.handleRequest(
+    request,
+    request,
+    response
+  ))
 
   return router
 }
