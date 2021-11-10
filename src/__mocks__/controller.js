@@ -14,7 +14,7 @@ export default ({
     statusCode: 200,
     body: {
       status: true,
-      version: '1.2.3',
+      version: '1.2.4',
       timestamp: new Date(),
       message: 'ok',
       content: generateContent(2048)
@@ -24,7 +24,7 @@ export default ({
     statusCode: 200,
     body: {
       status: true,
-      version: '1.2.3',
+      version: '1.2.5',
       timestamp: new Date(),
       message: 'ok'
     }
@@ -33,7 +33,7 @@ export default ({
     statusCode: 200,
     body: {
       status: true,
-      version: '1.2.3',
+      version: '1.2.6',
       timestamp: new Date(),
       message: 'ok'
     }

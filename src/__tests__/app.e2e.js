@@ -1,9 +1,9 @@
 import { expect, describe, it } from '@jest/globals'
 import supertest from 'supertest'
-import app from '../__mocks__/api.js'
+import api from '../__mocks__/api.js'
 
 process.env.SECRET = 'secret'
-const request = supertest(app)
+const request = supertest(api)
 
 describe('Test the server', () => {
   it('It should return status 200 for the status page (/v1/status)', async () => {
