@@ -37,7 +37,8 @@ const buildOpenapiExpress = ({
   poweredBy = 'Pon.Bike',
   staticFolder = null,
   limit = '100mb',
-  loggerOptions = {}
+  loggerOptions = {},
+  origin = '*'
 }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
     throw new Error(`invalid api details, field ${apiValidator.errors[0][0]} should be a ${apiValidator.errors[0][1]}`)
@@ -46,9 +47,12 @@ const buildOpenapiExpress = ({
   const app = express()
   const apiLogger = stackdriver(loggerOptions)
 
+  const corsOptions = {
+    origin
+  }
   app.set('name', name)
   app.set('version', version)
-  app.use(cors())
+  app.use(cors(corsOptions))
   app.use(compression())
   app.use(helmet())
   app.use(express.json({ limit }))
