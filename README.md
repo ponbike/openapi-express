@@ -1,3 +1,5 @@
+[![Node CI][npm-image]][npm-url] [![Bugs][bugs-image]][bugs-url] [![Code Smells][code-smells-image]][code-smells-url] [![Duplicated Lines (%)][duplicate-lines-image]][duplicate-lines-url] [![Maintainability Rating][maintainability-rate-image]][maintainability-rate-url] [![Reliability Rating][reliability-rate-image]][reliability-rate-url] [![Security Rating][security-rate-image]][security-rate-url] [![Technical Debt][technical-debt-image]][technical-debt-url] [![Vulnerabilities][vulnerabilitiest-image]][vulnerabilitiest-url] [![Quality Gate Status][quality-gate-image]][quality-gate-url] [![Coverage][coverage-image]][coverage-url]
+
 # OpenAPI express
 
 With this package you can easy connect your openapi spec to controllers.
@@ -107,3 +109,36 @@ It will set the the body parser limit, e.g. `app.use(bodyParser.json({ limit: '1
 The field `poweredBy` should be a string, but is optional.
 The default value is `Pon.Bike`.
 It will set a header `X-Powered-By`.
+
+[npm-url]: https://github.com/ponbike/openapi-express/actions/workflows/nodejs.yml
+[npm-image]: https://github.com/ponbike/openapi-express/actions/workflows/nodejs.yml/badge.svg
+
+[bugs-url]: https://sonarcloud.io/project/issues?id=ponbike_openapi-express&resolved=false&types=BUG
+[bugs-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=bugs&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[code-smells-url]: https://sonarcloud.io/project/issues?id=ponbike_openapi-express&resolved=false&types=CODE_SMELL
+[code-smells-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=code_smells&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[duplicate-lines-url]: https://sonarcloud.io/component_measures?id=ponbike_openapi-express&metric=duplicated_lines_density&view=list
+[duplicate-lines-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=duplicated_lines_density&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[maintainability-rate-url]: https://sonarcloud.io/project/issues?id=ponbike_openapi-express&resolved=false&types=CODE_SMELL
+[maintainability-rate-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=sqale_rating&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[reliability-rate-url]: https://sonarcloud.io/component_measures?id=ponbike_openapi-express&metric=Reliability
+[reliability-rate-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=reliability_rating&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[security-rate-url]: https://sonarcloud.io/project/security_hotspots?id=ponbike_openapi-express
+[security-rate-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=security_rating&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[technical-debt-url]: https://sonarcloud.io/component_measures?id=ponbike_openapi-express
+[technical-debt-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=sqale_index&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[vulnerabilitiest-url]: https://sonarcloud.io/project/issues?id=ponbike_openapi-express&resolved=false&types=VULNERABILITY
+[vulnerabilitiest-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=vulnerabilities&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[quality-gate-url]: https://sonarcloud.io/summary/new_code?id=ponbike_openapi-express
+[quality-gate-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=alert_status&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
+
+[coverage-url]: https://sonarcloud.io/component_measures?id=ponbike_openapi-express&metric=coverage&view=list
+[coverage-image]: https://sonarcloud.io/api/project_badges/measure?project=ponbike_openapi-express&metric=coverage&token=9436b5f7e3253aa4fa251c41ab5ee65e585df0b8
