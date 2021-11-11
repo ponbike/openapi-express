@@ -2,7 +2,7 @@ import openAPISpecification from '../__fixtures__/api-doc.json'
 import controllers from './controller.js'
 import { buildOpenapiExpress, API } from '../openapi-express.js'
 
-const app = buildOpenapiExpress({
+const api = buildOpenapiExpress({
   name: 'test',
   version: '1.2.3',
   apis: [
@@ -17,4 +17,4 @@ const app = buildOpenapiExpress({
   limit: '1mb'
 })
 
-export default app
+export default api

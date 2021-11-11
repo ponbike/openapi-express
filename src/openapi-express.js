@@ -30,7 +30,15 @@ const apiValidator = new Validator(apiSchema)
  *
  * @return {object}
  */
-const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', staticFolder = null, limit = '100mb', loggerOptions = {} }) => {
+const buildOpenapiExpress = ({
+  name,
+  version,
+  apis,
+  poweredBy = 'Pon.Bike',
+  staticFolder = null,
+  limit = '100mb',
+  loggerOptions = {}
+}) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
     throw new Error(`invalid api details, field ${apiValidator.errors[0][0]} should be a ${apiValidator.errors[0][1]}`)
   }
@@ -81,7 +89,13 @@ const buildOpenapiExpress = ({ name, version, apis, poweredBy = 'Pon.Bike', stat
  * @return {object}
  */
 const makeApi = (api, apiLogger) => {
-  const { specification, controllers, secret, requestValidation = false, responseValidation = false } = API.create(api)
+  const {
+    specification,
+    controllers,
+    secret,
+    requestValidation,
+    responseValidation
+  } = API.create(api)
   const router = express.Router()
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification))
   router.get('/api-docs', (request, response) => response.json(specification))
