@@ -36,6 +36,16 @@ const TestCases = [
     description: 'It should throw an error if the secret isnt valid',
     config: { version: 'v1', specification: {}, controllers: {}, secret: 42 },
     expectedError: 'Invalid OpenAPI secret'
+  },
+  {
+    description: 'It should throw an error if the requestValidation isnt valid',
+    config: { version: 'v1', specification: {}, controllers: {}, requestValidation: 42 },
+    expectedError: 'Invalid request validation'
+  },
+  {
+    description: 'It should throw an error if the responseValidation isnt valid',
+    config: { version: 'v1', specification: {}, controllers: {}, responseValidation: 42 },
+    expectedError: 'Invalid response validation'
   }
 ]
 

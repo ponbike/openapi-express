@@ -93,8 +93,8 @@ const makeApi = (api, apiLogger) => {
     specification,
     controllers,
     secret,
-    requestValidation = false,
-    responseValidation = false
+    requestValidation,
+    responseValidation
   } = API.create(api)
   const router = express.Router()
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification))
