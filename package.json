@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-express",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "OpenAPI express",
   "files": [
     "src/openapi-express.js",
