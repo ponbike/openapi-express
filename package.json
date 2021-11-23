@@ -30,6 +30,7 @@
   "homepage": "https://github.com/ponbike/openapi-express#readme",
   "scripts": {
     "lint": "ponstandard src",
+    "lint:report": "ponstandard src| standard-reporter --json > report.json",
     "lint:fix": "ponstandard src --fix",
     "test": "jest",
     "test:watch": "jest src --watch",
@@ -52,6 +53,7 @@
     "jscpd": "^3.3.26",
     "prettier": "^2.2.0",
     "standard": "^16.0.3",
+    "standard-reporter": "^1.0.5",
     "supertest": "^6.1.3"
   },
   "type": "module",
