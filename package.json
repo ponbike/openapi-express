@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-express",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "OpenAPI express",
   "files": [
     "src/openapi-express.js",
@@ -30,10 +30,10 @@
   "homepage": "https://github.com/ponbike/openapi-express#readme",
   "scripts": {
     "lint": "ponstandard src",
+    "lint:report": "ponstandard src| standard-reporter --json > report.json",
     "lint:fix": "ponstandard src --fix",
     "test": "jest",
     "test:watch": "jest src --watch",
-    "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "cpd": "node_modules/jscpd/bin/jscpd src",
     "vulnerabilities": "npm audit --only=prod"
   },
@@ -41,13 +41,11 @@
     "@babel/core": "^7.12.10",
     "@babel/eslint-parser": "^7.14.7",
     "@babel/plugin-transform-modules-commonjs": "^7.14.0",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-env": "^7.16.4",
     "@jest/globals": "^27.0.6",
     "@ponbike/ponstandard": "^0.2.2",
     "babel-jest": "^27.2.4",
-    "codecov": "^3.8.1",
-    "coveralls": "^3.1.0",
-    "eslint": "^7.18.0",
+    "eslint": "^8.3.0",
     "esm": "^3.2.25",
     "jest": "^27.2.4",
     "jest-junit": "^13.0.0",
@@ -55,6 +53,7 @@
     "jscpd": "^3.3.26",
     "prettier": "^2.2.0",
     "standard": "^16.0.3",
+    "standard-reporter": "^1.0.5",
     "supertest": "^6.1.3"
   },
   "type": "module",
@@ -62,17 +61,17 @@
     "node": ">= 14"
   },
   "dependencies": {
-    "@hckrnews/express-callback": "^2.1.1",
+    "@hckrnews/express-callback": "^3.0.2",
     "@hckrnews/validator": "^5.0.1",
-    "@ponbike/logger-stackdriver": "^0.1.0",
-    "@ponbike/openapi-routes": "^3.1.0",
+    "@ponbike/logger-stackdriver": "^0.1.5",
+    "@ponbike/openapi-routes": "^3.1.5",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-pino-logger": "^6.0.0",
     "helmet": "^4.4.1",
-    "openapi-backend": "^3.7.0",
+    "openapi-backend": "^5.0.0",
     "swagger-ui-express": "^4.1.6"
   },
   "ponstandard": {
