@@ -14,9 +14,10 @@ import API from './entities/api.js'
 import apiSchema from './api-schema.js'
 
 dotenv.config()
-const logger = stackdriver({
+const defaultLoggerOptions = {
   level: process.env.LOGLEVEL || process.env.LOG_LEVEL || 'info'
-})
+}
+const logger = stackdriver(defaultLoggerOptions)
 const apiValidator = new Validator(apiSchema)
 
 /**
@@ -39,7 +40,7 @@ const buildOpenapiExpress = ({
   poweredBy = 'Pon.Bike',
   staticFolder = null,
   limit = '100mb',
-  loggerOptions = {},
+  loggerOptions = defaultLoggerOptions,
   origin = '*'
 }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
