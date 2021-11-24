@@ -14,7 +14,9 @@ import API from './entities/api.js'
 import apiSchema from './api-schema.js'
 
 dotenv.config()
-const logger = stackdriver()
+const logger = stackdriver({
+  level: process.env.LOGLEVEL || process.env.LOG_LEVEL || 'info'
+})
 const apiValidator = new Validator(apiSchema)
 
 /**
@@ -131,6 +133,7 @@ export {
   makeApi,
   API,
   logger,
+  stackdriver,
   apiValidator,
   apiSchema
 }
