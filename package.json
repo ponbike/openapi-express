@@ -35,7 +35,7 @@
     "test": "jest",
     "test:watch": "jest src --watch",
     "cpd": "node_modules/jscpd/bin/jscpd src",
-    "vulnerabilities": "npm audit --only=prod --audit-level=high"
+    "vulnerabilities": "npm audit --only=prod"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
