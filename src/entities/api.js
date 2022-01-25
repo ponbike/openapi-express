@@ -87,12 +87,13 @@ class API {
   /**
    * Create an API entity
    *
-   * @param {string} version
-   * @param {object} specification
-   * @param {object} controllers
-   * @param {string} secret
-   * @param {boolean} requestValidation
-   * @param {boolean} responseValidation
+   * @param {object} data
+   * @param {string} data.version
+   * @param {object} data.specification
+   * @param {object} data.controllers
+   * @param {string} data.secret
+   * @param {boolean?} data.requestValidation
+   * @param {boolean?} data.responseValidation
    *
    * @return {object}
    */
