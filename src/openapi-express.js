@@ -21,15 +21,21 @@ const logger = stackdriver(defaultLoggerOptions)
 const apiValidator = new Validator(apiSchema)
 
 /**
+ * @typedef {import('./api-schema.js').Api} ApiType
+ */
+
+/**
  * Build the Open API Express server.
  *
- * @param {string} name
- * @param {string} version
- * @param {array} apis
- * @param {string} poweredBy
- * @param {string} staticFolder
- * @param {string} limit
- * @param {object} loggerOptions
+ * @param {object} data
+ * @param {string} data.name
+ * @param {string} data.version
+ * @param {ApiType[]} data.apis
+ * @param {string} data.poweredBy
+ * @param {string} data.staticFolder
+ * @param {string} data.limit
+ * @param {object} data.loggerOptions
+ * @param {string} data.origin
  *
  * @return {object}
  */
@@ -90,7 +96,7 @@ const buildOpenapiExpress = ({
 /**
  * Connect the openapi spec to the controllers.
  *
- * @param {object} api
+ * @param {ApiType} api
  * @param {P.Logger} apiLogger
  *
  * @return {object}
