@@ -25,7 +25,8 @@ const app = buildOpenapiExpress({
     poweredBy: 'Pon.Bike',
     loggerOptions: {
         level: 'info'
-    }
+    },
+    origin = '*'
 })
 ```
 
@@ -109,6 +110,13 @@ It will set the the body parser limit, e.g. `app.use(bodyParser.json({ limit: '1
 The field `poweredBy` should be a string, but is optional.
 The default value is `Pon.Bike`.
 It will set a header `X-Powered-By`.
+
+### origin
+
+The field `origin` can be set for the CORS.
+The default value is `*`.
+It will also change the `cross-origin-resource-policy`.
+On `*` it will be `cross-origin`, else it will be `same-origin`
 
 [npm-url]: https://github.com/ponbike/openapi-express/actions/workflows/nodejs.yml
 [npm-image]: https://github.com/ponbike/openapi-express/actions/workflows/nodejs.yml/badge.svg

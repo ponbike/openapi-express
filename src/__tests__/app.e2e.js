@@ -28,6 +28,8 @@ describe('Test the server', () => {
 
     expect(response.status).toBe(200)
     expect(response.body.message).toEqual('ok')
+    expect(response.header['access-control-allow-origin']).toEqual('https://localhost')
+    expect(response.header['cross-origin-resource-policy']).toEqual('same-origin')
   })
 
   it('It should return status 404 for a unknown page (/v1/xyz)', async () => {
