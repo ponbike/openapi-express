@@ -63,7 +63,7 @@ const buildOpenapiExpress = ({
   app.set('version', version)
   app.use(cors(corsOptions))
   app.use(compression())
-  app.use(helmet(getOriginPolicy(origin)))
+  app.use(helmet(getOriginResourcePolicy(origin)))
   app.use(express.json({ limit }))
   app.use((request, response, next) => {
     response.setHeader('X-Powered-By', poweredBy)
@@ -100,7 +100,7 @@ const buildOpenapiExpress = ({
  *
  * @return {{ crossOriginResourcePolicy: { policy: string } }}
  */
-const getOriginPolicy = (origin) => ({
+const getOriginResourcePolicy = (origin) => ({
   crossOriginResourcePolicy: {
     policy: origin === '*' ? 'cross-origin' : 'same-origin'
   }
@@ -156,5 +156,5 @@ export {
   stackdriver,
   apiValidator,
   apiSchema,
-  getOriginPolicy
+  getOriginResourcePolicy
 }

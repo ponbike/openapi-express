@@ -1,9 +1,9 @@
 import { expect, describe, it } from '@jest/globals'
-import { getOriginPolicy } from '../openapi-express.js'
+import { getOriginResourcePolicy } from '../openapi-express.js'
 
 describe('Get origin policy test', () => {
   it('It should return cross-origin if the value is *', async () => {
-    const result = getOriginPolicy('*')
+    const result = getOriginResourcePolicy('*')
     expect(result).toEqual({
       crossOriginResourcePolicy: {
         policy: 'cross-origin'
@@ -12,7 +12,7 @@ describe('Get origin policy test', () => {
   })
 
   it('It should return same-origin if the value isnt *', async () => {
-    const result = getOriginPolicy('https://localhost')
+    const result = getOriginResourcePolicy('https://localhost')
     expect(result).toEqual({
       crossOriginResourcePolicy: {
         policy: 'same-origin'
