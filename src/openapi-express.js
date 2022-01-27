@@ -94,7 +94,7 @@ const buildOpenapiExpress = ({
 }
 
 /**
- * Get the origin policy
+ * Get the origin resource policy
  *
  * @param {string} origin
  *
