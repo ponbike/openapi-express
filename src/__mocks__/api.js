@@ -14,7 +14,8 @@ const api = buildOpenapiExpress({
     })
   ],
   staticFolder: 'src/__fixtures__',
-  limit: '1mb'
+  limit: '1mb',
+  origin: 'https://localhost'
 })
 
 export default api
