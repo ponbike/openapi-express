@@ -93,6 +93,13 @@ const buildOpenapiExpress = ({
   return app
 }
 
+/**
+ * Get the origin policy
+ *
+ * @param {string} origin
+ *
+ * @return {{ crossOriginResourcePolicy: { policy: string } }}
+ */
 const getOriginPolicy = (origin) => ({
   crossOriginResourcePolicy: {
     policy: origin === '*' ? 'cross-origin' : 'same-origin'
