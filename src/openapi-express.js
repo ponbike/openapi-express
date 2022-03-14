@@ -25,6 +25,16 @@ const apiValidator = new Validator(apiSchema)
  */
 
 /**
+ * The logging object
+ * @typedef {Object} Logging
+ * @property {String} type
+ * @property {String} release
+ * @property {String} environment
+ * @property {Number} tracesSampleRate
+ * @property {Boolean} debug
+ */
+
+/**
  * Build the Open API Express server.
  *
  * @param {object} data
@@ -36,6 +46,7 @@ const apiValidator = new Validator(apiSchema)
  * @param {string} data.limit
  * @param {object} data.loggerOptions
  * @param {string} data.origin
+ * @param {Logging} data.logging
  *
  * @return {object}
  */
@@ -47,7 +58,8 @@ const buildOpenapiExpress = ({
   staticFolder = null,
   limit = '100mb',
   loggerOptions = defaultLoggerOptions,
-  origin = '*'
+  origin = '*',
+  logging
 }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
     throw new Error(`invalid api details, field ${apiValidator.errors[0][0]} should be a ${apiValidator.errors[0][1]}`)
@@ -74,7 +86,7 @@ const buildOpenapiExpress = ({
   app.set('logger', apiLogger)
 
   apis.forEach((api) => {
-    const apiRoutes = makeApi(api, apiLogger)
+    const apiRoutes = makeApi(api, apiLogger, logging)
     app.use(`/${api.version}`, apiRoutes)
   })
 
@@ -111,10 +123,11 @@ const getOriginResourcePolicy = (origin) => ({
  *
  * @param {ApiType} api
  * @param {P.Logger} apiLogger
+ * @param {Logging} logging
  *
  * @return {object}
  */
-const makeApi = (api, apiLogger) => {
+const makeApi = (api, apiLogger, logging) => {
   const {
     specification,
     controllers,
@@ -131,6 +144,7 @@ const makeApi = (api, apiLogger) => {
     secret,
     Backend: OpenAPIBackend,
     logger: apiLogger,
+    logging,
     controllers,
     callback: makeExpressCallback,
     root: '/',
