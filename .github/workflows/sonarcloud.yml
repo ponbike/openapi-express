@@ -23,7 +23,8 @@ jobs:
         npm run lint:report
         npm test
       env:
-        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         CI: true
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
