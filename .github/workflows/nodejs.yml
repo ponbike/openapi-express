@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 17.x]
+        node-version: [16.x, 17.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -25,5 +25,6 @@ jobs:
         npm run cpd
         npm test
       env:
-        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         CI: true
