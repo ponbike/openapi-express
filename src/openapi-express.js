@@ -3,13 +3,12 @@ import swaggerUi from 'swagger-ui-express'
 import cors from 'cors'
 import compression from 'compression'
 import helmet from 'helmet'
-import expressPino from 'express-pino-logger'
+import makeLogger from '@ponbike/logger'
 import { ApiRoutes } from '@ponbike/openapi-routes'
 import { OpenAPIBackend } from 'openapi-backend'
 import { makeExpressCallback } from '@hckrnews/express-callback'
 import { Validator } from '@hckrnews/validator'
 import dotenv from 'dotenv'
-import makeLogger from '@ponbike/logger'
 import API from './entities/api.js'
 import apiSchema from './api-schema.js'
 
@@ -81,7 +80,6 @@ const buildOpenapiExpress = ({
     response.setHeader('X-Version', version)
     next()
   })
-  app.use(expressPino({ logger: apiLogger }))
   app.set('logger', apiLogger)
 
   apis.forEach((api) => {
