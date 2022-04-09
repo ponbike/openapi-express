@@ -4,20 +4,29 @@ import cors from 'cors'
 import compression from 'compression'
 import helmet from 'helmet'
 import expressPino from 'express-pino-logger'
-import { logger as stackdriver } from '@ponbike/logger-stackdriver'
 import { ApiRoutes } from '@ponbike/openapi-routes'
 import { OpenAPIBackend } from 'openapi-backend'
 import { makeExpressCallback } from '@hckrnews/express-callback'
 import { Validator } from '@hckrnews/validator'
 import dotenv from 'dotenv'
+import makeLogger from '@ponbike/logger'
 import API from './entities/api.js'
 import apiSchema from './api-schema.js'
 
 dotenv.config()
 const defaultLoggerOptions = {
-  level: process.env.LOGLEVEL || process.env.LOG_LEVEL || 'info'
+  loggers: [
+    {
+      type: 'console'
+    },
+    {
+      type: 'sentry',
+      level: process.env.LOGGER_SENTRY_LOGLEVEL || 'error',
+      location: process.env.LOGGER_SENTRY_LOCATION
+    }
+  ]
 }
-const logger = stackdriver(defaultLoggerOptions)
+const logger = makeLogger(defaultLoggerOptions)
 const apiValidator = new Validator(apiSchema)
 
 /**
@@ -56,7 +65,7 @@ const buildOpenapiExpress = ({
   }
 
   const app = express()
-  const apiLogger = stackdriver(loggerOptions)
+  const apiLogger = makeLogger(loggerOptions)
 
   const corsOptions = {
     origin
@@ -157,7 +166,6 @@ export {
   makeApi,
   API,
   logger,
-  stackdriver,
   apiValidator,
   apiSchema,
   getOriginResourcePolicy
