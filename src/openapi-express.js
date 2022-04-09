@@ -25,6 +25,20 @@ const apiValidator = new Validator(apiSchema)
  */
 
 /**
+ * @callback handleRouteCallback
+ * @param request
+ * @param response
+ * @param next
+ */
+
+/**
+ * The route object additional routes that can be added outside the spec
+ * @typedef {Object} Route
+ * @property {string} route the endpoint to add
+ * @property {handleRouteCallback} handler the handler function
+ */
+
+/**
  * Build the Open API Express server.
  *
  * @param {object} data
@@ -33,6 +47,7 @@ const apiValidator = new Validator(apiSchema)
  * @param {ApiType[]} data.apis
  * @param {string} data.poweredBy
  * @param {string} data.staticFolder
+ * @param {Route[]} data.routes
  * @param {string} data.limit
  * @param {object} data.loggerOptions
  * @param {string} data.origin
@@ -49,6 +64,7 @@ const buildOpenapiExpress = ({
   limit = '100mb',
   loggerOptions = defaultLoggerOptions,
   origin = '*',
+  routes = [],
   errorLogger = null
 }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
@@ -78,6 +94,10 @@ const buildOpenapiExpress = ({
   apis.forEach((api) => {
     const apiRoutes = makeApi(api, apiLogger, errorLogger)
     app.use(`/${api.version}`, apiRoutes)
+  })
+
+  routes.forEach(({ route, handler }) => {
+    app.use(route, handler)
   })
 
   if (staticFolder) {
