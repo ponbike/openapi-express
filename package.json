@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-express",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "OpenAPI express",
   "files": [
     "src/openapi-express.js",
@@ -24,6 +24,16 @@
     "name": "Pieter Wigboldus",
     "url": "https://www.gazelle.nl/"
   },
+  "contributors": [
+    {
+      "name": "Berry Piest",
+      "email": "berry.piest@pon.com"
+    },
+    {
+      "name": "Pieter Wigboldus",
+      "email": "pieter.wigboldus@pon.com"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/ponbike/openapi-express/issues"
   },

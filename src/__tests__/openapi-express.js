@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_router"] }] */
 import { expect, describe, it } from '@jest/globals'
 import { buildOpenapiExpress } from '../openapi-express.js'
 
@@ -17,5 +18,12 @@ describe('OpenAPI Express build test', () => {
     expect(() => {
       buildOpenapiExpress({ name: 42, version: 'v1', apis: [], staticFolder: 'public' })
     }).toThrowError('invalid api details, field name should be a string')
+  })
+
+  it('It should add additional routes', async () => {
+    const api = buildOpenapiExpress({ name: 'test', version: 'v1', apis: [], routes: [{ route: '/test', handler: () => { } }] })
+    expect(api.get('name')).toBe('test')
+    const route = api._router.stack.find(layer => layer.name === 'handler')
+    expect(route?.name).toBe('handler')
   })
 })
