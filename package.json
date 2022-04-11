@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-express",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "OpenAPI express",
   "files": [
     "src/openapi-express.js",
@@ -72,9 +72,9 @@
   },
   "dependencies": {
     "@hckrnews/error": "^0.3.8",
-    "@hckrnews/express-callback": "^3.2.3",
+    "@hckrnews/express-callback": "^3.2.4",
     "@hckrnews/validator": "^5.0.1",
-    "@ponbike/logger": "^0.1.4",
+    "@ponbike/logger": "^0.1.5",
     "@ponbike/openapi-routes": "^3.3.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
