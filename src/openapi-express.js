@@ -19,15 +19,6 @@ const defaultLoggerOptions = {
   loggers: [
     {
       type: 'console'
-    },
-    {
-      type: 'sentry',
-      level: process.env.LOGGER_SENTRY_LOGLEVEL || 'error',
-      location: process.env.LOGGER_SENTRY_LOCATION || undefined,
-      environment: process.env.LOGGER_SENTRY_ENVIRONMENT || 'production',
-      serverName: process.env.LOGGER_SENTRY_SERVERNAME || 'openapi-express',
-      release: process.env.LOGGER_SENTRY_SERVERNAME || 'unknown',
-      debug: process.env.LOGGER_SENTRY_DEBUG || false
     }
   ]
 }
