@@ -1,3 +1,5 @@
+import { ServerError } from '@hckrnews/error'
+
 class API {
   constructor () {
     this.version = 'v1'
@@ -15,7 +17,10 @@ class API {
    */
   setVersion (version) {
     if (!version || version.constructor !== String) {
-      throw new Error('Invalid OpenAPI version')
+      throw new ServerError({
+        message: 'Invalid OpenAPI version',
+        value: { version }
+      })
     }
 
     this.version = version
@@ -28,7 +33,10 @@ class API {
    */
   setSpecification (specification) {
     if (!specification || specification.constructor !== Object) {
-      throw new Error('Invalid OpenAPI specification')
+      throw new ServerError({
+        message: 'Invalid OpenAPI specification',
+        value: { specification }
+      })
     }
 
     this.specification = specification
@@ -41,7 +49,10 @@ class API {
    */
   setControllers (controllers) {
     if (!controllers || controllers.constructor !== Object) {
-      throw new Error('Invalid OpenAPI controllers')
+      throw new ServerError({
+        message: 'Invalid OpenAPI controllers',
+        value: { controllers }
+      })
     }
 
     this.controllers = controllers
@@ -54,7 +65,10 @@ class API {
    */
   setSecret (secret) {
     if (secret && secret.constructor !== String) {
-      throw new Error('Invalid OpenAPI secret')
+      throw new ServerError({
+        message: 'Invalid OpenAPI secret',
+        value: { secret }
+      })
     }
 
     this.secret = secret
@@ -67,7 +81,10 @@ class API {
    */
   setRequestValidation (val) {
     if (val.constructor !== Boolean) {
-      throw new Error('Invalid request validation')
+      throw new ServerError({
+        message: 'Invalid request validation',
+        value: { requestValidation: val }
+      })
     }
     this.requestValidation = val
   }
@@ -79,7 +96,10 @@ class API {
    */
   setResponseValidation (val) {
     if (val.constructor !== Boolean) {
-      throw new Error('Invalid response validation')
+      throw new ServerError({
+        message: 'Invalid response validation',
+        value: { responseValidation: val }
+      })
     }
     this.responseValidation = val
   }
