@@ -23,7 +23,7 @@ const defaultLoggerOptions = {
     {
       type: 'sentry',
       level: process.env.LOGGER_SENTRY_LOGLEVEL || 'error',
-      location: process.env.LOGGER_SENTRY_LOCATION || 'https://47e3a7500e454093a6edd4b2c1af6f2c@o1151173.ingest.sentry.io/6227608',
+      location: process.env.LOGGER_SENTRY_LOCATION || undefined,
       environment: process.env.LOGGER_SENTRY_ENVIRONMENT || 'production',
       serverName: process.env.LOGGER_SENTRY_SERVERNAME || 'openapi-express',
       release: process.env.LOGGER_SENTRY_SERVERNAME || 'unknown',
