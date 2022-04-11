@@ -3,21 +3,35 @@ import swaggerUi from 'swagger-ui-express'
 import cors from 'cors'
 import compression from 'compression'
 import helmet from 'helmet'
-import expressPino from 'express-pino-logger'
-import { logger as stackdriver } from '@ponbike/logger-stackdriver'
+import makeLogger from '@ponbike/logger'
 import { ApiRoutes } from '@ponbike/openapi-routes'
 import { OpenAPIBackend } from 'openapi-backend'
 import { makeExpressCallback } from '@hckrnews/express-callback'
 import { Validator } from '@hckrnews/validator'
 import dotenv from 'dotenv'
+import { ServerError } from '@hckrnews/error'
 import API from './entities/api.js'
 import apiSchema from './api-schema.js'
 
 dotenv.config()
+// @todo: no env vars?
 const defaultLoggerOptions = {
-  level: process.env.LOGLEVEL || process.env.LOG_LEVEL || 'info'
+  loggers: [
+    {
+      type: 'console'
+    },
+    {
+      type: 'sentry',
+      level: process.env.LOGGER_SENTRY_LOGLEVEL || 'error',
+      location: process.env.LOGGER_SENTRY_LOCATION || 'https://47e3a7500e454093a6edd4b2c1af6f2c@o1151173.ingest.sentry.io/6227608',
+      environment: process.env.LOGGER_SENTRY_ENVIRONMENT || 'production',
+      serverName: process.env.LOGGER_SENTRY_SERVERNAME || 'openapi-express',
+      release: process.env.LOGGER_SENTRY_SERVERNAME || 'unknown',
+      debug: process.env.LOGGER_SENTRY_DEBUG || false
+    }
+  ]
 }
-const logger = stackdriver(defaultLoggerOptions)
+const logger = makeLogger(defaultLoggerOptions)
 const apiValidator = new Validator(apiSchema)
 
 /**
@@ -68,11 +82,14 @@ const buildOpenapiExpress = ({
   errorLogger = null
 }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
-    throw new Error(`invalid api details, field ${apiValidator.errors[0][0]} should be a ${apiValidator.errors[0][1]}`)
+    throw new ServerError({
+      message: `invalid api details, field ${apiValidator.errors[0][0]} should be a ${apiValidator.errors[0][1]}`,
+      value: apiValidator.errors
+    })
   }
 
   const app = express()
-  const apiLogger = stackdriver(loggerOptions)
+  const apiLogger = makeLogger(loggerOptions)
 
   const corsOptions = {
     origin
@@ -88,7 +105,6 @@ const buildOpenapiExpress = ({
     response.setHeader('X-Version', version)
     next()
   })
-  app.use(expressPino({ logger: apiLogger }))
   app.set('logger', apiLogger)
 
   apis.forEach((api) => {
@@ -177,7 +193,6 @@ export {
   makeApi,
   API,
   logger,
-  stackdriver,
   apiValidator,
   apiSchema,
   getOriginResourcePolicy
