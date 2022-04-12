@@ -24,7 +24,12 @@ const app = buildOpenapiExpress({
     limit: '100mb',
     poweredBy: 'Pon.Bike',
     loggerOptions: {
-        level: 'info'
+        level: 'info',
+        loggers: [
+            {
+                type: 'console'
+            }
+        ]
     },
     errorLogger: {
       error: (error) => {
@@ -122,6 +127,10 @@ The field `origin` can be set for the CORS.
 The default value is `*`.
 It will also change the `cross-origin-resource-policy`.
 On `*` it will be `cross-origin`, else it will be `same-origin`
+
+### loggerOptions
+
+See: https://github.com/ponbike/logger
 
 [npm-url]: https://github.com/ponbike/openapi-express/actions/workflows/nodejs.yml
 [npm-image]: https://github.com/ponbike/openapi-express/actions/workflows/nodejs.yml/badge.svg
