@@ -55,6 +55,48 @@
         }
       }
     },
+    "/exception": {
+      "get": {
+        "tags": [
+          "Exception testing"
+        ],
+        "operationId": "getException",
+        "responses": {
+          "200": {
+            "description": "Exception test",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/statusResponse"
+                },
+                "example": {
+                  "status": true,
+                  "version": "1.0.0",
+                  "timestamp": "1970-01-01T01:01:01.000Z",
+                  "message": "ok"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Status of the API",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/statusResponse"
+                },
+                "example": {
+                  "status": false,
+                  "version": "1.0.0",
+                  "timestamp": "1970-01-01T01:01:01.000Z",
+                  "message": "Backend unreachable!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/get-test/{item}": {
       "get": {
         "tags": [
