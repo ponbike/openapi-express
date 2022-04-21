@@ -57,4 +57,10 @@ describe('Test the server', () => {
 
     expect(response.status).toBe(200)
   })
+
+  it('It should return status 500 for the exception test (/exception)', async () => {
+    const response = await request.get('/v1/exception')
+
+    expect(response.status).toBe(500)
+  })
 })

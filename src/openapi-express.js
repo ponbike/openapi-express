@@ -16,6 +16,7 @@ import apiSchema from './api-schema.js'
 dotenv.config()
 // @todo: no env vars?
 const defaultLoggerOptions = {
+  level: process.env.LOGLEVEL || process.env.LOG_LEVEL || 'info',
   loggers: [
     {
       type: 'console'

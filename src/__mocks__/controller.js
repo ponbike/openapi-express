@@ -1,3 +1,5 @@
+import { ServerError } from '@hckrnews/error'
+
 const generateContent = (size) => Array(size).fill().map(_ => String.fromCharCode(33 + Math.random() * (127 - 33))).join('')
 
 export default ({
@@ -45,5 +47,18 @@ export default ({
       timestamp: new Date(),
       message: 'Not found.'
     }
-  })
+  }),
+  getException: async () => {
+    throw new ServerError({
+      message: 'Test exception 9',
+      value: {
+        field: 'test',
+        type: 'string',
+        invalidData: 47,
+        data: {
+          test: 47
+        }
+      }
+    })
+  }
 })
