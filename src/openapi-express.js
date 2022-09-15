@@ -71,7 +71,8 @@ const buildOpenapiExpress = ({
   loggerOptions = defaultLoggerOptions,
   origin = '*',
   routes = [],
-  errorLogger = null
+  errorLogger = null,
+  ApiRoutesClass = ApiRoutes
 }) => {
   if (!apiValidator.validate({ name, version, apis, poweredBy, staticFolder })) {
     throw new ServerError({
@@ -100,7 +101,7 @@ const buildOpenapiExpress = ({
   app.set('logger', apiLogger)
 
   apis.forEach((api) => {
-    const apiRoutes = makeApi(api, apiLogger, errorLogger)
+    const apiRoutes = makeApi(api, apiLogger, errorLogger, ApiRoutesClass)
     app.use(`/${api.version}`, apiRoutes)
   })
 
@@ -145,7 +146,7 @@ const getOriginResourcePolicy = (origin) => ({
  *
  * @return {object}
  */
-const makeApi = (api, apiLogger, errorLogger) => {
+const makeApi = (api, apiLogger, errorLogger, ApiRoutesClass = ApiRoutes) => {
   const {
     specification,
     controllers,
@@ -157,7 +158,7 @@ const makeApi = (api, apiLogger, errorLogger) => {
   router.use('/swagger', swaggerUi.serve, swaggerUi.setup(specification))
   router.get('/api-docs', (_request, response) => response.json(specification))
 
-  const { api: apiRoutes } = ApiRoutes.create({
+  const { api: apiRoutes } = ApiRoutesClass.create({
     specification,
     secret,
     Backend: OpenAPIBackend,
