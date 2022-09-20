@@ -92,5 +92,9 @@
     "ignore": [
       "**/__fixtures__/"
     ]
+  },
+  "eslintConfig": {
+    "parser": "@babel/eslint-parser",
+    "extends": "./node_modules/@pondevelopment/ponstandard/eslintrc.json"
   }
 }

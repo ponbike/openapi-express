@@ -143,6 +143,7 @@ const getOriginResourcePolicy = (origin) => ({
  * @param {ApiType} api
  * @param {P.Logger} apiLogger
  * @param {class} errorLogger
+ * @param {ApiRoutes.class} ApiRoutesClass Optional, falls back to `ApiRoutes`
  *
  * @return {object}
  */
