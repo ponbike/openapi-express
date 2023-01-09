@@ -1,19 +1,21 @@
 /**
- * @typedef {Object} ApiSchema
- * @property {String} name
- * @property {String} version
+ * @typedef {object} ApiSchema
+ * @property {string} name
+ * @property {string} version
  * @property {Api[]} apis
- * @property {String?} poweredBy
- * @property {String?} limit
- * @property {String?} staticFolder
- *
- * @typedef {Object} Api
- * @property {String} version
+ * @property {string=} poweredBy
+ * @property {string=} limit
+ * @property {string=} staticFolder
+ */
+
+/**
+ * @typedef {object} Api
+ * @property {string} version
  * @property {object} specification
  * @property {object} controllers
- * @property {boolean} requestValidation
- * @property {boolean} responseValidation
- * @property {String?} secret
+ * @property {boolean=} requestValidation
+ * @property {boolean=} responseValidation
+ * @property {string=} secret
  */
 export default {
   name: 'string',

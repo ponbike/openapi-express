@@ -39,7 +39,8 @@ const apiValidator = new Validator(apiSchema)
 
 /**
  * The route object additional routes that can be added outside the spec
- * @typedef {Object} Route
+ *
+ * @typedef {object} Route
  * @property {string} route the endpoint to add
  * @property {handleRouteCallback} handler the handler function
  */
@@ -51,15 +52,15 @@ const apiValidator = new Validator(apiSchema)
  * @param {string} data.name
  * @param {string} data.version
  * @param {ApiType[]} data.apis
- * @param {string} data.poweredBy
- * @param {string} data.staticFolder
- * @param {Route[]} data.routes
- * @param {string} data.limit
- * @param {object} data.loggerOptions
- * @param {string} data.origin
- * @param {class} data.errorLogger
- *
- * @return {object}
+ * @param {string=} data.poweredBy
+ * @param {string=} data.staticFolder
+ * @param {Route[]=} data.routes
+ * @param {string=} data.limit
+ * @param {object=} data.loggerOptions
+ * @param {string=} data.origin
+ * @param {object=} data.errorLogger
+ * @param {object=} data.ApiRoutesClass
+ * @returns {object}
  */
 const buildOpenapiExpress = ({
   name,
@@ -128,8 +129,7 @@ const buildOpenapiExpress = ({
  * Get the origin resource policy
  *
  * @param {string} origin
- *
- * @return {{ crossOriginResourcePolicy: { policy: string } }}
+ * @returns {{ crossOriginResourcePolicy: { policy: string } }}
  */
 const getOriginResourcePolicy = (origin) => ({
   crossOriginResourcePolicy: {
@@ -141,11 +141,10 @@ const getOriginResourcePolicy = (origin) => ({
  * Connect the openapi spec to the controllers.
  *
  * @param {ApiType} api
- * @param {P.Logger} apiLogger
- * @param {class} errorLogger
- * @param {ApiRoutes.class} ApiRoutesClass Optional, falls back to `ApiRoutes`
- *
- * @return {object}
+ * @param {object=} apiLogger
+ * @param {object=} errorLogger
+ * @param {object=} ApiRoutesClass
+ * @returns {object}
  */
 const makeApi = (api, apiLogger, errorLogger, ApiRoutesClass = ApiRoutes) => {
   const {
