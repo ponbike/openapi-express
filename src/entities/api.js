@@ -112,8 +112,8 @@ class API {
    * @param {object} data.specification
    * @param {object} data.controllers
    * @param {string} data.secret
-   * @param {boolean?} data.requestValidation
-   * @param {boolean?} data.responseValidation
+   * @param {boolean=} data.requestValidation
+   * @param {boolean=} data.responseValidation
    * @returns {object}
    */
   static create ({
