@@ -114,8 +114,7 @@ class API {
    * @param {string} data.secret
    * @param {boolean?} data.requestValidation
    * @param {boolean?} data.responseValidation
-   *
-   * @return {object}
+   * @returns {object}
    */
   static create ({
     version,
