@@ -101,3 +101,7 @@ typings/
 
 # TernJS port file
 .tern-port
+test-report.xml
+.gitignore
+report.json
+test-reports/jest-junit.xml
