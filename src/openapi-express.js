@@ -39,7 +39,6 @@ const apiValidator = new Validator(apiSchema)
 
 /**
  * The route object additional routes that can be added outside the spec
- *
  * @typedef {object} Route
  * @property {string} route the endpoint to add
  * @property {handleRouteCallback} handler the handler function
@@ -47,7 +46,6 @@ const apiValidator = new Validator(apiSchema)
 
 /**
  * Build the Open API Express server.
- *
  * @param {object} data
  * @param {string} data.name
  * @param {string} data.version
@@ -127,7 +125,6 @@ const buildOpenapiExpress = ({
 
 /**
  * Get the origin resource policy
- *
  * @param {string} origin
  * @returns {{ crossOriginResourcePolicy: { policy: string } }}
  */
@@ -139,7 +136,6 @@ const getOriginResourcePolicy = (origin) => ({
 
 /**
  * Connect the openapi spec to the controllers.
- *
  * @param {ApiType} api
  * @param {object=} apiLogger
  * @param {object=} errorLogger

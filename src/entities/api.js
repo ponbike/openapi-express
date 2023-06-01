@@ -12,7 +12,6 @@ class API {
 
   /**
    * Set the version
-   *
    * @param {string} version
    */
   setVersion (version) {
@@ -28,7 +27,6 @@ class API {
 
   /**
    * Set the specification
-   *
    * @param {object} specification
    */
   setSpecification (specification) {
@@ -44,7 +42,6 @@ class API {
 
   /**
    * Set the controllers
-   *
    * @param {object} controllers
    */
   setControllers (controllers) {
@@ -60,7 +57,6 @@ class API {
 
   /**
    * Set the secret
-   *
    * @param {string} secret
    */
   setSecret (secret) {
@@ -76,7 +72,6 @@ class API {
 
   /**
    * set the request validation
-   *
    * @param {boolean} val
    */
   setRequestValidation (val) {
@@ -91,7 +86,6 @@ class API {
 
   /**
    * set the response validation
-   *
    * @param {boolean} val
    */
   setResponseValidation (val) {
@@ -106,7 +100,6 @@ class API {
 
   /**
    * Create an API entity
-   *
    * @param {object} data
    * @param {string} data.version
    * @param {object} data.specification
