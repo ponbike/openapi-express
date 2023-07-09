@@ -15,7 +15,8 @@ const api = buildOpenapiExpress({
   ],
   staticFolder: 'src/__fixtures__',
   limit: '1mb',
-  origin: 'https://localhost'
+  origin: 'https://localhost',
+  loggerOptions: { loggers: [{ type: 'console', morgan: true }] }
 })
 
 export default api
