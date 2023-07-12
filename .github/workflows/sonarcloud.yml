@@ -7,27 +7,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: Tests
+      uses: pondevelopment/actions/nodejs@main
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install, lint, and test
-      run: |
-        npm ci
-        npm run lint:report
-        npm test
-      env:
-        NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        CI: true
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
+        NPM_REGISTRY_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_CACHE: 'npm'
+        MODULES_CACHE: 'true'
+    - name: SonarCloud
+      uses: sonarsource/sonarcloud-github-action@v1.8
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
