@@ -26,4 +26,9 @@ describe('OpenAPI Express build test', () => {
     const route = api._router.stack.find(layer => layer.name === 'handler')
     expect(route?.name).toBe('handler')
   })
+
+  it('It should add morgan logging', () => {
+    const api = buildOpenapiExpress({ name: 'test', version: 'v1', apis: [], loggerOptions: { loggers: [{ type: 'console', morgan: true }] } })
+    expect(api.get('useMorgan')).toBeTruthy()
+  })
 })

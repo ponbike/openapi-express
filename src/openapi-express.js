@@ -1,3 +1,4 @@
+/* eslint max-statements: ["error", 24] */
 import express from 'express'
 import swaggerUi from 'swagger-ui-express'
 import cors from 'cors'
@@ -10,6 +11,7 @@ import { makeExpressCallback } from '@hckrnews/express-callback'
 import { Validator } from '@hckrnews/validator'
 import dotenv from 'dotenv'
 import { ServerError } from '@hckrnews/error'
+import morgan from 'morgan'
 import API from './entities/api.js'
 import apiSchema from './api-schema.js'
 
@@ -80,6 +82,20 @@ const buildOpenapiExpress = ({
     })
   }
 
+  const useMorgan = loggerOptions.loggers.reduce((acc, cur) => cur?.morgan || acc, false)
+  const morganJSONFormat = () => JSON.stringify({
+    method: ':method',
+    url: ':url',
+    http_version: ':http-version',
+    remote_addr: ':remote-addr',
+    remote_addr_forwarded: ':req[x-forwarded-for]', // Get a specific header
+    response_time: ':response-time',
+    status: ':status',
+    content_length: ':res[content-length]',
+    timestamp: ':date[iso]',
+    user_agent: ':user-agent'
+  })
+
   const app = express()
   const apiLogger = makeLogger(loggerOptions)
 
@@ -88,6 +104,17 @@ const buildOpenapiExpress = ({
   }
   app.set('name', name)
   app.set('version', version)
+  app.set('useMorgan', useMorgan)
+  if (useMorgan) {
+    app.use(morgan(morganJSONFormat(), {
+      stream: {
+        write: (message) => {
+          const data = JSON.parse(message)
+          return logger.info('accesslog', data)
+        }
+      }
+    }))
+  }
   app.use(cors(corsOptions))
   app.use(compression())
   app.use(helmet(getOriginResourcePolicy(origin)))
