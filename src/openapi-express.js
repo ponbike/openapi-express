@@ -110,7 +110,7 @@ const buildOpenapiExpress = ({
       stream: {
         write: (message) => {
           const data = JSON.parse(message)
-          return logger.info('accesslog', data)
+          return logger.info(`${data.method} ${data.url} : ${data.status}`, data)
         }
       }
     }))
