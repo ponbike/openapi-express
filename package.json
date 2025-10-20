@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-express",
-  "version": "1.8.5",
+  "version": "1.9.0",
   "description": "OpenAPI express",
   "files": [
     "src/openapi-express.js",
@@ -84,7 +84,8 @@
     "swagger-ui-express": "^4.6.0"
   },
   "overrides": {
-    "optionator": "0.9.3"
+    "optionator": "0.9.3",
+    "axios": "^0.30.1"
   },
   "ponstandard": {
     "parser": "@babel/eslint-parser",
