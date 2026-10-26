@@ -1,4 +1,4 @@
-import openAPISpecification from '../__fixtures__/api-doc.json'
+import openAPISpecification from '../__fixtures__/api-doc.json' with { type: 'json' }
 import controllers from './controller.js'
 import { buildOpenapiExpress, API } from '../openapi-express.js'
 

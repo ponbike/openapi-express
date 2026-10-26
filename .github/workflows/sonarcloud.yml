@@ -12,6 +12,7 @@ jobs:
       uses: pondevelopment/actions/nodejs@main
       with:
         NPM_REGISTRY_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_VERSION: '24.22.1'
         NODE_CACHE: 'npm'
         MODULES_CACHE: 'true'
     - name: SonarCloud
