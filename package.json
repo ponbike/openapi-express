@@ -73,7 +73,7 @@
     "@hckrnews/express-callback": "^4.1.2",
     "@hckrnews/validator": "^8.0.5",
     "@ponbike/logger": "^0.2.4",
-    "@ponbike/openapi-routes": "^5.0.0",
+    "@ponbike/openapi-routes": "^6.0.0",
     "compression": "^1.8.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
